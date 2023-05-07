@@ -137,7 +137,7 @@ public:
 
     void print() const {
         if (this->brand == nullptr || this->taste == nullptr) {
-            std::cout << "This shisha contains invalid data!" << std::endl;
+            std::cout << "The shisha contains invalid data!" << std::endl;
             return;
         }
 
@@ -167,6 +167,90 @@ private:
     double price;
     char *brand;
     char *taste;
+};
+
+class Alcohol {
+public:
+    Alcohol() {
+        this->price = 0.0;
+        this->name = nullptr;
+    }
+
+    Alcohol(double price, const char *name)
+        : price(0.0), name(nullptr) {
+        if (price <= 0.0 || name == nullptr) {
+            std::cout << "Invalid arguments for the alcohol!" << std::endl;
+            return;
+        }
+
+        this->name = new (std::nothrow) char[strlen(name) + 1];
+
+        if (this->name == nullptr) {
+            std::cout << "Problem with allocating memory!" << std::endl;
+            return;
+        }
+
+        this->price = price;
+        strcpy(this->name, name);
+    }
+
+    double getPrice()   const { return this->price; }
+    char* getName()     const { return this->name; }
+
+    void setPrice(double price) {
+        if (price <= 0.0) {
+            std::cout << "Invalid price for the alcohol!" << std::endl;
+            return;
+        }
+
+        this->price = price;
+    }
+
+    void setName(const char *name) {
+        if (name == nullptr) {
+            std::cout << "Invalid name for the alcohol!" << std::endl;
+            return;
+        }
+
+        delete[] this->name;
+
+        this->name = new (std::nothrow) char[strlen(name) + 1];
+
+        if (this->name == nullptr) {
+            std::cout << "Problem with allocating memory!" << std::endl;
+            this->resetData(); return;
+        }
+
+        strcpy(this->name, name);
+    }
+
+    void print() const {
+        if (this->name == nullptr) {
+            std::cout << "The alcohol contains invalid data!" << std::endl;
+            return;
+        }
+
+        std::cout << std::endl;
+        std::cout << "Alcohol Information: " << std::endl;
+        std::cout << "Price: " << this->price << std::endl;
+        std::cout << "Name: " << this->name << std::endl;
+        std::cout << std::endl;
+    }
+
+    ~Alcohol() {
+        delete[] this->name;
+    }
+
+private:
+    void resetData() {
+        delete[] this->name;
+
+        this->price = 0.0;
+        this->name = nullptr;
+    }
+
+    double price;
+    char *name;
 };
 
 int main() {
