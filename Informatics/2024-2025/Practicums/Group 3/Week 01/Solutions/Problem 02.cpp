@@ -67,8 +67,6 @@ unsigned int readShift() {
             return shift;
         }
     }
-
-    return shift;
 }
 
 
