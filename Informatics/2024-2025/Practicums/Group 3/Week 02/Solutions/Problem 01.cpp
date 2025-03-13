@@ -90,26 +90,27 @@ bool arePointsSame(const Point& point1, const Point& point2) {
 }
 
 bool arePointsCollinear(const Point& point1, const Point& point2, const Point& point3) {
-    return
+    return  std::fabs(
         (
-            (
-                point1.xCoordinate * point2.yCoordinate * point3.zCoordinate    +
-                point2.xCoordinate * point3.yCoordinate * point1.zCoordinate    +
-                point3.xCoordinate * point1.yCoordinate * point2.zCoordinate
-            )   -
-            (
-                point3.xCoordinate * point2.yCoordinate * point1.zCoordinate    +
-                point2.xCoordinate * point1.yCoordinate * point3.zCoordinate    +
-                point1.xCoordinate * point3.yCoordinate * point2.zCoordinate
-            )
-        ) < EPSILON;
+            (point2.yCoordinate - point1.yCoordinate) * (point3.zCoordinate - point1.zCoordinate)   +
+            (point2.xCoordinate - point1.xCoordinate) * (point3.yCoordinate - point1.yCoordinate)   +
+            (point2.zCoordinate - point1.zCoordinate) * (point3.xCoordinate - point1.xCoordinate)
+        ) -
+        (
+            (point2.yCoordinate - point1.yCoordinate) * (point3.xCoordinate - point1.xCoordinate)   +
+            (point2.zCoordinate - point1.zCoordinate) * (point3.yCoordinate - point1.yCoordinate)   +
+            (point2.xCoordinate - point1.xCoordinate) * (point3.zCoordinate - point1.zCoordinate)
+        )
+    ) < EPSILON;
 }
 
 bool arePointsTriangle(const Point& point1, const Point& point2, const Point& point3) {
     return
         arePointsSame(point1, point2) == false  &&
         arePointsSame(point2, point3) == false  &&
-        arePointsSame(point3, point1) == false  ;
+        arePointsSame(point3, point1) == false  &&
+
+        arePointsCollinear(point1, point2, point3) == false;
 }
 
 
