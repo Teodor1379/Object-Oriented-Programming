@@ -26,7 +26,8 @@ Point buildPoint();
 
 
 
-bool areSamePoints      (const Point&, const Point&                 );
+bool arePointsSame      (const Point&, const Point&                 );
+bool arePointsCollinear (const Point&, const Point&, const Point&   );
 bool arePointsTriangle  (const Point&, const Point&, const Point&   );
 
 
@@ -42,8 +43,8 @@ int main() {
     Point point2 = buildPoint();
     Point point3 = buildPoint();
 
-    std::cout << "The perimiter of the triangle is: "   << findPerimeter(point1, point2, point3) << std::endl;
-    std::cout << "The area of the triangle is: "        << findArea     (point1, point2, point3) << std::endl;
+    std::cout << "The perimeter of the triangle is: "   << findPerimeter(point1, point2, point3) << std::endl;
+    std::cout << "The area      of the triangle is: "   << findArea     (point1, point2, point3) << std::endl;
     
     return 0;
 }
@@ -88,6 +89,22 @@ bool arePointsSame(const Point& point1, const Point& point2) {
         std::fabs(point1.zCoordinate - point2.zCoordinate) < EPSILON    ;
 }
 
+bool arePointsCollinear(const Point& point1, const Point& point2, const Point& point3) {
+    return
+        (
+            (
+                point1.xCoordinate * point2.yCoordinate * point3.zCoordinate    +
+                point2.xCoordinate * point3.yCoordinate * point1.zCoordinate    +
+                point3.xCoordinate * point1.yCoordinate * point2.zCoordinate
+            )   -
+            (
+                point3.xCoordinate * point2.yCoordinate * point1.zCoordinate    +
+                point2.xCoordinate * point1.yCoordinate * point3.zCoordinate    +
+                point1.xCoordinate * point3.yCoordinate * point2.zCoordinate
+            )
+        ) < EPSILON;
+}
+
 bool arePointsTriangle(const Point& point1, const Point& point2, const Point& point3) {
     return
         arePointsSame(point1, point2) == false  &&
@@ -122,12 +139,12 @@ double findArea(const Point& point1, const Point& point2, const Point& point3) {
     double side2 = findDistance(point2, point3);
     double side3 = findDistance(point3, point1);
 
-    double halfPerimiter = findPerimeter(point1, point2, point3) / 2.0;
+    double halfPerimeter = findPerimeter(point1, point2, point3) / 2.0;
 
     return std::sqrt(
-        halfPerimiter           *
-        (halfPerimiter - side1) *
-        (halfPerimiter - side2) *
-        (halfPerimiter - side3)
+        halfPerimeter           *
+        (halfPerimeter - side1) *
+        (halfPerimeter - side2) *
+        (halfPerimeter - side3)
     );
 }
