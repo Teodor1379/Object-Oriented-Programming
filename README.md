@@ -1,6 +1,13 @@
 # **Object Oriented Programming**
 
+
+
 ## Полезни връзки:
 
-1. http://www.learncpp.com
+1. https://en.cppreference.com
+2. https://www.learncpp.com
 
+
+## Компилатори:
+
+1. https://gcc.gnu.org
