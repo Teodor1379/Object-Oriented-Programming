@@ -18,7 +18,7 @@ FLAGS	=	-Wall					\
 							\
 		-Wfloat-equal				\
 		-Wdouble-promotion			\
-		
+							\
 		-Wsuggest-attribute=pure		\
 		-Wsuggest-attribute=const		\
 		-Wsuggest-attribute=noreturn		\
