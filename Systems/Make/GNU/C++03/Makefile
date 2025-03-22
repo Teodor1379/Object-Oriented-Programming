@@ -50,8 +50,10 @@ FLAGS	=	-Wall					\
 							\
 		-Wvector-operation-performance	\
 							\
+							\
 		-pedantic				\
 		-pedantic-errors			\
+							\
 							\
 		-fpermissive				\
 
