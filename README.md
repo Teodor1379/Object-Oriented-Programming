@@ -10,4 +10,5 @@
 
 ## Компилатори:
 
-1. https://gcc.gnu.org
+1. https://www.gnu.org
+2. https://gcc.gnu.org
