@@ -19,8 +19,8 @@ void    clearString(char*& string   );
 
 
 
-bool    isLowerLetter(const char c);
-bool    isUpperLetter(const char c);
+bool    isLowerLetter(char c);
+bool    isUpperLetter(char c);
 
 
 
@@ -102,11 +102,11 @@ void transformString(char* string, unsigned int shift) {
 
     while (*string != '\0') {
         if (isLowerLetter(*string)) {
-            *string = (*string - 'a' + shift % 26) % 26 + 'a';
+            *string = static_cast<char>((*string - 'a' + shift % 26) % 26 + 'a');
         } else if (isUpperLetter(*string)) {
-            *string = (*string - 'A' + shift % 26) % 26 + 'A';
+            *string = static_cast<char>((*string - 'A' + shift % 26) % 26 + 'A');
         } else {
-            *string = *string + 0;
+            *string = static_cast<char>(*string + 0);
         }
 
         string = string + 1;
