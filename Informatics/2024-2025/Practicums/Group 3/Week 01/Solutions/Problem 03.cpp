@@ -13,6 +13,8 @@ int main() {
     const int number2   =   readNumber();
     const int number3   =   readNumber();
 
+    std::cout << std::endl;
+
     const int minNumber =   (number1 < number2) ? (number1 < number3 ? number1 : number3) : (number2 < number3 ? number2 : number3);
     const int maxNumber =   (number1 > number2) ? (number1 > number3 ? number1 : number3) : (number2 > number3 ? number2 : number3);
     const int avgNumber =   (number1 + number2 + number3) - (minNumber + maxNumber);
