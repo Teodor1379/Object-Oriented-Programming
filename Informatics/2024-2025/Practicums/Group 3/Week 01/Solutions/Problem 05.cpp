@@ -6,45 +6,61 @@
 
 
 
-int             readNumb(                   );
-unsigned int    readSize(const char* string );
+int             readNumb();
+unsigned int    readSize();
 
 
 
-int**   buildMatrix(                            unsigned int rows, unsigned int cols);
-void    clearMatrix(            int**&  matrix, unsigned int rows                   );
+int*    buildArray(                     unsigned int size   );
+void    clearArray(         int*& array                     );
 
-void    inputMatrix(            int**   matrix, unsigned int rows, unsigned int cols);
-void    printMatrix(const int* const*   matrix, unsigned int rows, unsigned int cols);
+void    inputArray(         int* array, unsigned int size   );
+void    printArray(const    int* array, unsigned int size   );
 
 
 
-void transposeMatrix(const int* const* matrix, unsigned int rows, unsigned int cols);
+int findMinNumber(const int* array, unsigned int size);
+int findMaxNumber(const int* array, unsigned int size);
+
+
+
+int findArraySum    (const int* array, unsigned int size);
+int findArrayProduct(const int* array, unsigned int size);
+
 
 
 
 int main() {
-    unsigned int rows   =   readSize("ROWS");
-    unsigned int cols   =   readSize("COLS");
+    unsigned int size = readSize();
+
+    std::cout << std::endl;
 
 
-    int** matrix = buildMatrix(rows, cols);
+    int* array = buildArray(size);
 
-    if (matrix == nullptr) {
+    if (array == nullptr) {
         std::cout << "Allocating Memory... ERROR!" << std::endl;
 
         return 1;
     }
 
-
-    inputMatrix(matrix, rows, cols);
-    printMatrix(matrix, rows, cols);
+    std::cout << std::endl;
 
 
-    transposeMatrix(matrix, rows, cols);
+    int minNumber = findMinNumber(array, size);
+    int maxNumber = findMaxNumber(array, size);
+    
+    int result1 = findArraySum      (array, size);
+    int result2 = findArrayProduct  (array, size);
+
+    std::cout << "The MIN number of the array is: " << minNumber << std::endl;
+    std::cout << "The MAX number of the array is: " << maxNumber << std::endl;
+
+    std::cout << "The SUM       of the array is: " << result1 << std::endl;
+    std::cout << "The PRODUCT   of the array is: " << result2 << std::endl;
 
 
-    clearMatrix(matrix, rows);
+    clearArray(array);
 
 
     return 0;
@@ -67,107 +83,130 @@ int readNumb() {
     }
 }
 
-unsigned int readSize(const char* string) {
+unsigned int readSize() {
     unsigned int size = 0;
 
-    while (true) {
-        std::cout << "Enter the " << string << " of the array: ";
+    while (size == 0) {
+        std::cout << "Enter the size of the array: ";
 
         std::cin >> size;
 
         if (std::cin.fail()) {
             std::cin.clear  ();
             std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+
+            size = 0;
         } else {
             std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
 
-            if (size == 0) {
-                continue;
-            } else {
-                return size;
-            }
+            return size;
         }
     }
+
+    return size;
 }
 
 
 
-int** buildMatrix(unsigned int rows, unsigned int cols) {
-    assert(rows     !=  0       );
-    assert(cols     !=  0       );
+int* buildArray(unsigned int size) {
+    assert(size !=  0   );
 
-    int** matrix = new (std::nothrow) int*[rows];
+    int* array = new (std::nothrow) int[size];
 
-    if (matrix != nullptr) {
-        for (unsigned int i = 0; i < rows; ++i) {
-            matrix[i] = new (std::nothrow) int[cols];
-
-            if (matrix[i] == nullptr) {
-                clearMatrix(matrix, i);
-
-                return nullptr;
-            }
-        }
+    if (array != nullptr) {
+        inputArray(array, size);
+        printArray(array, size);
     }
-
-    return matrix;
+    
+    return array;
 }
 
-void clearMatrix(int**& matrix, unsigned int rows) {
-    assert(matrix   !=  nullptr );
-    assert(rows     !=  0       );
+void clearArray(int*& array) {
+    assert(array    !=  nullptr );
+    
+    delete[] array;
 
-    for (unsigned int i = 0; i < rows; ++i) {
-        delete[] matrix[i];
-    }
-
-    delete[] matrix;
-
-    matrix = nullptr;
+    array = nullptr;
 }
 
 
 
-void inputMatrix(int** matrix, unsigned int rows, unsigned int cols) {
-    assert(matrix   !=  nullptr );
-    assert(rows     !=  0       );
-    assert(cols     !=  0       );
+void inputArray(int* array, unsigned int size) {
+    assert(array    !=  nullptr );
+    assert(size     !=  0       );
 
-    std::cout << "Enter the elements of the matrix:\n";
+    std::cout << "Enter the elements of the array: ";
 
-    for (unsigned int i = 0; i < rows; ++i) {
-        for (unsigned int j = 0; j < cols; ++j) {
-            matrix[i][j] = readNumb();
-        }
+    for (unsigned int i = 0; i < size; ++i) {
+        array[i] = readNumb();
     }
 }
 
-void printMatrix(const int* const* matrix, unsigned int rows, unsigned int cols) {
-    assert(matrix   !=  nullptr );
-    assert(rows     !=  0       );
-    assert(cols     !=  0       );
+void printArray(const int* array, unsigned int size) {
+    assert(array    !=  nullptr );
+    assert(size     !=  0       );
 
-    std::cout << "The elements of the matrix are:\n";
+    std::cout << "The elements of the array are: ";
 
-    for (unsigned int i = 0; i < rows; ++i) {
-        for (unsigned int j = 0; j < cols; ++j) {
-            std::cout << matrix[i][j] << ' ';
-        }
-
-        std::cout << std::endl;
+    for (unsigned int i = 0; i < size; ++i) {
+        std::cout << array[i] << ' ';
     }
+
+    std::cout << std::endl;
 }
 
 
 
-void transposeMatrix(const int* const* matrix, unsigned int rows, unsigned int cols) {
-    std::cout << "The transposed matrix is: " << std::endl;
+int findMinNumber(const int* array, unsigned int size) {
+    assert(array    !=  nullptr );
+    assert(size     !=  0       );
 
-    for (unsigned int i = 0; i < cols; ++i) {
-        for (unsigned int j = 0; j < rows; ++j) {
-            std::cout << matrix[j][i] << ' ';
-        }
+    int result = array[0];
 
-        std::cout << std::endl;
+    for (unsigned int i = 1; i < size; ++i) {
+        result = std::min(result, array[i]);
     }
+
+    return result;
+}
+
+int findMaxNumber(const int* array, unsigned int size) {
+    assert(array    !=  nullptr );
+    assert(size     !=  0       );
+
+    int result = array[0];
+
+    for (unsigned int i = 1; i < size; ++i) {
+        result = std::max(result, array[i]);
+    }
+
+    return result;
+}
+
+
+
+int findArraySum(const int* array, unsigned int size) {
+    assert(array    !=  nullptr );
+    assert(size     !=  0       );
+
+    int result = 0;
+
+    for (unsigned int i = 0; i < size; ++i) {
+        result = result + array[i];
+    }
+
+    return result;
+}
+
+int findArrayProduct(const int* array, unsigned int size) {
+    assert(array    !=  nullptr );
+    assert(size     !=  0       );
+
+    int result = 1;
+
+    for (unsigned int i = 0; i < size; ++i) {
+        result = result * array[i];
+    }
+
+    return result;
 }
