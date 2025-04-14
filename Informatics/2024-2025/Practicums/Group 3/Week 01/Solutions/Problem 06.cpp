@@ -6,40 +6,49 @@
 
 
 
-int     inputSide1();
-double  inputSide2();
+int             readNumb(                   );
+unsigned int    readSize(const char* string );
 
 
 
-int findPerimeter   (int a, int b);
-int findArea        (int a, int b);
+int**   buildMatrix(                            unsigned int rows, unsigned int cols);
+void    clearMatrix(            int**&  matrix, unsigned int rows                   );
+
+void    inputMatrix(            int**   matrix, unsigned int rows, unsigned int cols);
+void    printMatrix(const int* const*   matrix, unsigned int rows, unsigned int cols);
 
 
 
-double findPerimeter(double a, double b);
-double findArea     (double a, double b);
+void transposeMatrix(const int* const* matrix, unsigned int rows, unsigned int cols);
 
 
 
 int main() {
-    int side11 = inputSide1();
-    int side12 = inputSide1();
+    unsigned int rows   =   readSize("ROWS");
+    unsigned int cols   =   readSize("COLS");
 
-    int perimeter1  =   findPerimeter   (side11, side12);
-    int area1       =   findArea        (side11, side12);
 
-    std::cout << "The PERIMETER of the rectangle is: "  << perimeter1   << std::endl;
-    std::cout << "The AREA      of the rectangle is: "  << area1        << std::endl;
-    
+    int** matrix = buildMatrix(rows, cols);
 
-    double side21 = inputSide2();
-    double side22 = inputSide2();
+    if (matrix == nullptr) {
+        std::cout << "Allocating Memory... ERROR!" << std::endl;
 
-    double perimeter2   =   findPerimeter   (side21, side22);
-    double area2        =   findArea        (side21, side22);
+        return 1;
+    }
 
-    std::cout << "The PERIMETER of the rectangle is: "  << perimeter2   << std::endl;
-    std::cout << "The AREA      of the rectangle is: "  << area2        << std::endl;
+    std::cout << std::endl;
+
+
+    inputMatrix(matrix, rows, cols);
+    printMatrix(matrix, rows, cols);
+
+    std::cout << std::endl;
+
+
+    transposeMatrix(matrix, rows, cols);
+
+
+    clearMatrix(matrix, rows);
 
 
     return 0;
@@ -47,43 +56,39 @@ int main() {
 
 
 
-int inputSide1() {
-    int side = 0;
+int readNumb() {
+    int number = 0;
 
     while (true) {
-        std::cout << "Enter the side of the rectangle: ";
-
-        std::cin >> side;
+        std::cin >> number;
 
         if (std::cin.fail()) {
             std::cin.clear  ();
             std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
         } else {
-            if (side <= 0) {
-                continue;
-            } else {
-                return side;
-            }
+            return number;
         }
     }
 }
 
-double inputSide2() {
-    double side = 0.0;
+unsigned int readSize(const char* string) {
+    unsigned int size = 0;
 
     while (true) {
-        std::cout << "Enter the side of the rectangle: ";
+        std::cout << "Enter the " << string << " of the matrix: ";
 
-        std::cin >> side;
+        std::cin >> size;
 
         if (std::cin.fail()) {
             std::cin.clear  ();
             std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
         } else {
-            if (side <= 0.0) {
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+
+            if (size == 0) {
                 continue;
             } else {
-                return side;
+                return size;
             }
         }
     }
@@ -91,32 +96,82 @@ double inputSide2() {
 
 
 
-int findPerimeter(int a, int b) {
-    assert(a > 0);
-    assert(b > 0);
+int** buildMatrix(unsigned int rows, unsigned int cols) {
+    assert(rows     !=  0       );
+    assert(cols     !=  0       );
 
-    return 2 * (a + b);
+    int** matrix = new (std::nothrow) int*[rows];
+
+    if (matrix != nullptr) {
+        for (unsigned int i = 0; i < rows; ++i) {
+            matrix[i] = new (std::nothrow) int[cols];
+
+            if (matrix[i] == nullptr) {
+                clearMatrix(matrix, i);
+
+                return nullptr;
+            }
+        }
+    }
+
+    return matrix;
 }
 
-int findArea(int a, int b) {
-    assert(a > 0);
-    assert(b > 0);
+void clearMatrix(int**& matrix, unsigned int rows) {
+    assert(matrix   !=  nullptr );
+    assert(rows     !=  0       );
 
-    return a * b;
+    for (unsigned int i = 0; i < rows; ++i) {
+        delete[] matrix[i];
+    }
+
+    delete[] matrix;
+
+    matrix = nullptr;
 }
 
 
 
-double findPerimeter(double a, double b) {
-    assert(a > 0);
-    assert(b > 0);
+void inputMatrix(int** matrix, unsigned int rows, unsigned int cols) {
+    assert(matrix   !=  nullptr );
+    assert(rows     !=  0       );
+    assert(cols     !=  0       );
 
-    return 2 * (a + b);
+    std::cout << "Enter the elements of the matrix:\n";
+
+    for (unsigned int i = 0; i < rows; ++i) {
+        for (unsigned int j = 0; j < cols; ++j) {
+            matrix[i][j] = readNumb();
+        }
+    }
 }
 
-double findArea(double a, double b) {
-    assert(a > 0);
-    assert(b > 0);
+void printMatrix(const int* const* matrix, unsigned int rows, unsigned int cols) {
+    assert(matrix   !=  nullptr );
+    assert(rows     !=  0       );
+    assert(cols     !=  0       );
 
-    return a * b;
+    std::cout << "The elements of the matrix are:\n";
+
+    for (unsigned int i = 0; i < rows; ++i) {
+        for (unsigned int j = 0; j < cols; ++j) {
+            std::cout << matrix[i][j] << ' ';
+        }
+
+        std::cout << std::endl;
+    }
+}
+
+
+
+void transposeMatrix(const int* const* matrix, unsigned int rows, unsigned int cols) {
+    std::cout << "The transposed matrix is: " << std::endl;
+
+    for (unsigned int i = 0; i < cols; ++i) {
+        for (unsigned int j = 0; j < rows; ++j) {
+            std::cout << matrix[j][i] << ' ';
+        }
+
+        std::cout << std::endl;
+    }
 }
