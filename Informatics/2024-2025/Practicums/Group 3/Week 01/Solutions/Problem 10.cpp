@@ -1,128 +1,69 @@
-#include <cassert>
-
-#include <cstring>
-
 #include <limits>
+
+#include <cassert>
 
 #include <iostream>
 
 
 
-#define MAX 1024
-
-#define MAX_COLORS   4
-#define MAX_VALUES  14
+int             readElem();
+unsigned int    readSize();
 
 
 
-enum class Color {
-    INVALID =   -1,
-    CLUB    =    0,
-    DIAMOND =    1,
-    HEART   =    2,
-    SPADE   =    3,
-};
-
-enum class Value : int /* char */{
-    ZERO    =    0, // '0',
-    ONE     =    1, // '1',
-    TWO     =    2, // '2',
-    THREE   =    3, // '3',
-    FOUR    =    4, // '4',
-    FIVE    =    5, // '5',
-    SIX     =    6, // '6',
-    SEVEN   =    7, // '7',
-    EIGHT   =    8, // '8',
-    NINE    =    9, // '9',
-    TEN     =   10, // 'T',
-    JACK    =   11, // 'J',
-    QUEEN   =   12, // 'Q',
-    KING    =   13, // 'K',
-    ACE     =   14, // 'A',
-};
+unsigned int    findPowerTwo(unsigned int number);
 
 
 
-const char* colors[5]   =   {
-    "INVALID"   ,
-    "CLUB"      ,
-    "DIAMOND"   ,
-    "HEART"     ,
-    "SPADE"     ,
-};
+int*    buildArray(                     unsigned int& size,  unsigned int& capacity );
+void    clearArray(        int*& array                                              );
+
+void    inputArray(         int* array, const unsigned int& size,   const unsigned int& capacity );
+void    printArray(const    int* array, const unsigned int& size,   const unsigned int& capacity );
 
 
 
-char*   buildString(                );
-void    clearString(char*& string   );
+bool    isEmpty(const int* array, const unsigned int& size, const unsigned int& capacity);
 
 
 
-int     getCorresponding(const char& letter);
+void    pushBack(int*& array, unsigned int& size, unsigned int& capacity, int element   );
+void     popBack(int*& array, unsigned int& size, const unsigned int& capacity          );
 
 
 
-Color   getColor(const char* string);
-Value   getValue(const int & letter);
-
-
-
-int compareColors(const Color& color1, const Color& color2);
-int compareValues(const Value& value1, const Value& value2);
+void    resize(int*& array, const unsigned int& size, unsigned int& capacity);
 
 
 
 int main() {
-    char* string1 = buildString();
-    char* string2 = buildString();
+    unsigned int size       =   readSize    ()      ;
+    unsigned int capacity   =   findPowerTwo(size)  ;
 
-    if (string1 == nullptr) {
+
+    int* array = buildArray(size, capacity);
+
+    if (array == nullptr) {
         std::cout << "Allocating Memory... ERROR!" << std::endl;
 
         return 1;
     }
 
-    if (string2 == nullptr) {
-        std::cout << "Allocating Memory... ERROR!" << std::endl;
-
-        clearString(string1);
-
-        return 1;
-    }
-
-    char letter1 = 0;
-    char letter2 = 0;
-
-    std::cout << "Enter the value of the card: ";   std::cin >> letter1;
-    std::cout << "Enter the value of the card: ";   std::cin >> letter2;
+    
+    std::cout << "Is Empty: " << isEmpty(array, size, capacity) << std::endl;
 
 
-    Color color1 = getColor(string1);
-    Color color2 = getColor(string2);
+    pushBack(array, size, capacity, 1379);
 
-    Value value1 = getValue(getCorresponding(letter1));
-    Value value2 = getValue(getCorresponding(letter2));
+    printArray(array, size, capacity);
 
 
-    clearString(string1);
-    clearString(string2);
+    popBack(array, size, capacity);
+
+    printArray(array, size, capacity);
 
 
-    if (compareColors(color1, color2) == 0) {
-        if (compareValues(value1, value2) > 0) {
-            std::cout << "Card 1 is stronger than Card 2!" << std::endl;
-        } else if (compareValues(value1, value2) < 0) {
-            std::cout << "Card 2 is stronger than Card 1!" << std::endl;
-        } else {
-            std::cout << "Card 1 is equal to the Card 2!" << std::endl;
-        }
-    } else {
-        if (compareColors(color1, color2) > 0) {
-            std::cout << "Card 1 is stronger than Card 2!" << std::endl;
-        } else {
-            std::cout << "Card 2 is stronger than Card 1!" << std::endl;
-        }
-    }
+    clearArray(array);
 
 
     return 0;
@@ -130,87 +71,171 @@ int main() {
 
 
 
-char* buildString() {
-    char* string = new (std::nothrow) char[MAX];
+int readElem() {
+    int element = 0;
 
-    if (string != nullptr) {
-        std::cout << "Enter the name of the card: ";
+    while (true) {
+        std::cin >> element;
 
-        std::cin.getline(string, MAX, '\n');
+        if (std::cin.fail()) {
+            std::cin.clear  ();
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+        } else {
+            return element;
+        }
     }
-
-    return string;
 }
 
-void clearString(char*& string) {
-    assert(string   !=  nullptr );
+unsigned int readSize() {
+    unsigned int size = 0;
 
-    delete[] string;
+    while (true) {
+        std::cout << "Enter the size of the array: ";
 
-    string = nullptr;
-}
+        std::cin >> size;
 
+        if (std::cin.fail()) {
+            std::cin.clear  ();
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+        } else {
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
 
-
-int getCorresponding(const char& letter) {
-    if (letter >= '1' && letter <= '9') {
-        return letter - '0';
-    } else {
-        switch (letter) {
-            case 'T':   return 10;
-            case 'J':   return 11;
-            case 'Q':   return 12;
-            case 'K':   return 13;
-            case 'A':   return 14;
-            default :   return  0;
+            if (size == 0) {
+                continue;
+            } else {
+                return size;
+            }
         }
     }
 }
 
 
 
-Color getColor(const char* string) {    
-    for (unsigned int i = 1; i < MAX_COLORS; ++i) {
-        if (strcmp(string, colors[i]) == 0) {
-            return static_cast<Color>(i);
+unsigned int findPowerTwo(unsigned int number) {
+    unsigned int power = 1;
+
+    while (power < number) {
+        power = power * 2;
+    }
+
+    return power;
+}
+
+
+
+int* buildArray(unsigned int& size, unsigned int& capacity) {
+    assert(size     !=  0   );
+    assert(capacity !=  0   );
+
+    int* array = new (std::nothrow) int[capacity]();
+
+    if (array != nullptr) {
+        inputArray(array, size, capacity);
+        printArray(array, size, capacity);
+    }
+
+    return array;
+}
+
+void clearArray(int*& array) {
+    assert(array    !=  nullptr );
+
+    delete[] array;
+
+    array = nullptr;
+}
+
+
+
+void inputArray(int* array, const unsigned int& size, const unsigned int& capacity) {
+    assert(array    !=  nullptr );
+    assert(size     !=  0       );
+    assert(capacity !=  0       );
+
+    std::cout << "Enter the elements of the array: ";
+
+    for (unsigned int i = 0; i < size; ++i) {
+        array[i] = readElem();
+    }
+}
+
+void printArray(const int* array, const unsigned int& size, const unsigned int& capacity) {
+    assert(array    !=  nullptr );
+    assert(size     !=  0       );
+    assert(capacity !=  0       );
+
+    std::cout << "The elements of the array are: ";
+
+    for (unsigned int i = 0; i < size; ++i) {
+        std::cout << array[i] << ' ';
+    }
+
+    std::cout << std::endl;
+}
+
+
+
+bool isEmpty(const int* array, const unsigned int& size, const unsigned int& capacity) {
+    assert(array    !=  nullptr );
+    assert(capacity !=  0       );
+
+    return size == 0;
+}
+
+
+
+void pushBack(int*& array, unsigned int& size, unsigned int& capacity, int element) {
+    assert(array    !=  nullptr );
+    assert(capacity !=  0       );
+
+    if (size == capacity) {
+        resize(array, size, capacity);
+
+        if (size == capacity) {
+            return;
         }
     }
 
-    return Color::INVALID;
+    array[size] = element;
+
+    size = size + 1;
 }
 
-Value getValue(const int& letter) {
-    if (letter < 1 || letter > 14) {
-        return Value::ZERO;
+void popBack(int*& array, unsigned int& size, const unsigned int& capacity) {
+    assert(size     !=  0   );
+    assert(capacity !=  0   );
+
+    if (size == 0) {
+        std::cout << "Invalid POP operation!" << std::endl;
+
+        return;
     }
 
-    return static_cast<Value>(letter);
+    size = size - 1;
 }
 
 
 
-int compareColors(const Color& color1, const Color& color2) {
-    assert(color1 != Color::INVALID);
-    assert(color2 != Color::INVALID);
+void resize(int*& array, const unsigned int& size, unsigned int& capacity) {
+    assert(array    !=  nullptr );
+    assert(size     !=  0       );
+    assert(capacity !=  0       );
 
-    if (color1 < color2) {
-        return -1;
-    } else if (color1 > color2) {
-        return 1;
-    } else {
-        return 0;
+    int* temporary = new (std::nothrow) int[capacity * 2]();
+
+    if (temporary == nullptr) {
+        std::cout << "Invalid Resize Operation!" << std::endl;
+
+        return;
     }
-}
 
-int compareValues(const Value& value1, const Value& value2) {
-    assert(value1 != Value::ZERO);
-    assert(value2 != Value::ZERO);
-
-    if (value1 < value2) {
-        return -1;
-    } else if (value1 > value2) {
-        return 1;
-    } else {
-        return 0;
+    for (unsigned int i = 0; i < size; ++i) {
+        temporary[i] = array[i];
     }
+
+    delete[] array;
+
+    array = temporary;
+
+    capacity = capacity * 2;
 }
