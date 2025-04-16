@@ -202,6 +202,8 @@ void pushBack(int*& array, unsigned int& size, unsigned int& capacity, int eleme
 }
 
 void popBack(int*& array, unsigned int& size, const unsigned int& capacity) {
+    // warning: unused parameter ‘array‘ [-Wunused-parameter]
+
     assert(size     !=  0   );
     assert(capacity !=  0   );
 
