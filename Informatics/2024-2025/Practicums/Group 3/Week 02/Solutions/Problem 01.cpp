@@ -1,7 +1,11 @@
 #include <cmath>
+
 #include <cassert>
 
 #include <limits>
+
+#include <iomanip>
+
 #include <iostream>
 
 
@@ -26,6 +30,10 @@ Point buildPoint();
 
 
 
+bool validatePoint(const Point&);
+
+
+
 bool arePointsSame      (const Point&, const Point&                 );
 bool arePointsCollinear (const Point&, const Point&, const Point&   );
 bool arePointsTriangle  (const Point&, const Point&, const Point&   );
@@ -39,12 +47,12 @@ double findArea     (const Point&, const Point&, const Point&   );
 
 
 int main() {
-    Point point1 = buildPoint();
-    Point point2 = buildPoint();
-    Point point3 = buildPoint();
+    Point point1 = buildPoint();    // warning: function call has aggregate value [-Waggregate-return]
+    Point point2 = buildPoint();    // warning: function call has aggregate value [-Waggregate-return]
+    Point point3 = buildPoint();    // warning: function call has aggregate value [-Waggregate-return]
 
-    std::cout << "The perimeter of the triangle is: "   << findPerimeter(point1, point2, point3) << std::endl;
-    std::cout << "The area      of the triangle is: "   << findArea     (point1, point2, point3) << std::endl;
+    std::cout << "The PERIMETER of the triangle is: "   << std::setprecision(6) << std::fixed << findPerimeter(point1, point2, point3) << std::endl;
+    std::cout << "The AREA      of the triangle is: "   << std::setprecision(6) << std::fixed << findArea     (point1, point2, point3) << std::endl;
     
     return 0;
 }
@@ -78,11 +86,25 @@ Point buildPoint() {
     result.zCoordinate = readCoordinate();
 
     return result;
+
+    // warning: function returns an aggregate [-Waggregate-return]
+}
+
+
+
+bool validatePoint(const Point& point) {
+    return
+        std::isnan(point.xCoordinate) == false && std::isinf(point.xCoordinate) == false    &&
+        std::isnan(point.yCoordinate) == false && std::isinf(point.yCoordinate) == false    &&
+        std::isnan(point.zCoordinate) == false && std::isinf(point.zCoordinate) == false;
 }
 
 
 
 bool arePointsSame(const Point& point1, const Point& point2) {
+    assert(validatePoint(point1));
+    assert(validatePoint(point2));
+
     return
         std::fabs(point1.xCoordinate - point2.xCoordinate) < EPSILON    &&
         std::fabs(point1.yCoordinate - point2.yCoordinate) < EPSILON    &&
@@ -90,6 +112,10 @@ bool arePointsSame(const Point& point1, const Point& point2) {
 }
 
 bool arePointsCollinear(const Point& point1, const Point& point2, const Point& point3) {
+    assert(validatePoint(point1));
+    assert(validatePoint(point2));
+    assert(validatePoint(point3));
+
     return  std::fabs(
         (
             (point2.yCoordinate - point1.yCoordinate) * (point3.zCoordinate - point1.zCoordinate)   +
@@ -105,6 +131,10 @@ bool arePointsCollinear(const Point& point1, const Point& point2, const Point& p
 }
 
 bool arePointsTriangle(const Point& point1, const Point& point2, const Point& point3) {
+    assert(validatePoint(point1));
+    assert(validatePoint(point2));
+    assert(validatePoint(point3));
+
     return
         arePointsSame(point1, point2) == false  &&
         arePointsSame(point2, point3) == false  &&
@@ -116,6 +146,9 @@ bool arePointsTriangle(const Point& point1, const Point& point2, const Point& po
 
 
 double findDistance(const Point& point1, const Point& point2) {
+    assert(validatePoint(point1));
+    assert(validatePoint(point2));
+
     return std::sqrt(
         std::pow(point1.xCoordinate - point2.xCoordinate, 2)    +
         std::pow(point1.yCoordinate - point2.yCoordinate, 2)    +
@@ -124,6 +157,10 @@ double findDistance(const Point& point1, const Point& point2) {
 }
 
 double findPerimeter(const Point& point1, const Point& point2, const Point& point3) {
+    assert(validatePoint(point1));
+    assert(validatePoint(point2));
+    assert(validatePoint(point3));
+
     assert(arePointsTriangle(point1, point2, point3));
 
     double side1 = findDistance(point1, point2);
@@ -134,6 +171,10 @@ double findPerimeter(const Point& point1, const Point& point2, const Point& poin
 }
 
 double findArea(const Point& point1, const Point& point2, const Point& point3) {
+    assert(validatePoint(point1));
+    assert(validatePoint(point2));
+    assert(validatePoint(point3));
+
     assert(arePointsTriangle(point1, point2, point3));
     
     double side1 = findDistance(point1, point2);
