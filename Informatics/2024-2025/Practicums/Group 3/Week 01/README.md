@@ -279,7 +279,7 @@ The interval is: Old
 ```
 
 
-## Задача 8 (Белот)
+## Задача 8 ♥️ (Белот) ♠️
 
 ![Static Badge](https://img.shields.io/badge/medium-yellow)
 
@@ -313,7 +313,7 @@ Enter the value of the card: A
 Card 1 is equal to the Card 2!
 ```
 
-## Задача 9 (Символни Низове)
+## Задача 9 📛 (Символни Низове) 📛
 
 ![Static Badge](https://img.shields.io/badge/hard-red)
 
@@ -369,7 +369,7 @@ The strings are:
 ```
 
 
-## Задача 10 (Динамичен Масив - Реализация)
+## Задача 10 👨🏻‍🔧 (Динамичен Масив - Реализация) 👨🏻‍🔧
 
 ![Static Badge](https://img.shields.io/badge/hard-red)
 
@@ -406,7 +406,7 @@ The elements of the array are: 1 2 3 4 5 6 7 8 9 1379
 The elements of the array are: 1 2 3 4 5 6 7 8 9
 ```
 
-## Задача 11 (Бързо Търсене в Матрица)
+## Задача 11 🔎 (Бързо Търсене в Матрица) 🔍
 
 ![Static Badge](https://img.shields.io/badge/hard-red)
 
@@ -460,7 +460,7 @@ The element WAS NOT found!
 ```
 
 
-## Задача 12
+## Задача 12 🔐 (Файлови Права) 🔐
 
 ![Static Badge](https://img.shields.io/badge/hard-red)
 
@@ -487,7 +487,7 @@ The permissions are: rwe
 ```
 
 
-## Задача 13
+## Задача 13 🕵️ (Търсачи на Числа) 🕵️
 
 ![Static Badge](https://img.shields.io/badge/impossible-black)
 
