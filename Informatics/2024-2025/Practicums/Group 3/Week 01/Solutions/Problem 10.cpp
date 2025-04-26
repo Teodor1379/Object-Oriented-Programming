@@ -95,16 +95,17 @@ unsigned int readSize() {
         std::cin >> size;
 
         if (std::cin.fail()) {
-            std::cin.clear  ();
-            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.clear  ()                                                  ;
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
         } else {
-            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.clear  ()                                                  ;
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
 
             if (size == 0) {
                 continue;
-            } else {
-                return size;
             }
+
+            return size;
         }
     }
 }
@@ -204,8 +205,8 @@ void pushBack(int*& array, unsigned int& size, unsigned int& capacity, int eleme
 void popBack(int*& array, unsigned int& size, const unsigned int& capacity) {
     // warning: unused parameter ‘array‘ [-Wunused-parameter]
 
-    assert(size     !=  0   );
-    assert(capacity !=  0   );
+    assert(array    !=  nullptr );
+    assert(capacity !=  0       );
 
     if (size == 0) {
         std::cout << "Invalid POP operation!" << std::endl;
