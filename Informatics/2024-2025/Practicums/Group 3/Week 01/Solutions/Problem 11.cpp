@@ -126,10 +126,11 @@ unsigned int readSize(const char* string) {
         std::cin >> size;
 
         if (std::cin.fail()) {
-            std::cin.clear  ();
-            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.clear  ()                                                  ;
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
         } else {
-            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.clear  ()                                                  ;
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
 
             if (size == 0) {
                 continue;
