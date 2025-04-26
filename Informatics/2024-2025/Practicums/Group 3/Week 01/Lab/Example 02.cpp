@@ -1,3 +1,5 @@
+#include <string>
+
 #include <iostream>
 
 
@@ -13,6 +15,7 @@ using namespace std;
 void sample1();
 void sample2();
 void sample3();
+void sample4();
 
 
 
@@ -20,6 +23,7 @@ int main() {
     sample1();
     sample2();
     sample3();
+    sample4();
 
     return 0;
 }
@@ -56,4 +60,16 @@ void sample3() {
     cin.getline(name, 10, '\n');
 
     cout << "You name is: " << name << endl;
+}
+
+void sample4() {
+    // Useful for projects...
+
+    string name;
+
+    cout << "Enter your name: ";
+
+    getline(cin, name, '\n');
+
+    cout << "Your name is: " << name << endl;
 }
