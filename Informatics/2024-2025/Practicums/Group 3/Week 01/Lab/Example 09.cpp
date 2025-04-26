@@ -30,10 +30,14 @@ int main() {
 
 
 void print(const int& number) {
+    // Do not do const and reference on primitive type!
+
     std::cout << "Integer number: " << number << std::endl;
 }
 
 void print(const double& number) {
+    // Do not do const and reference on primitive type!
+
     std::cout << "Double number: " << number << std::endl;
 }
 
