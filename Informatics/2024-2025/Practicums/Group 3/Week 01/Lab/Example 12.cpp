@@ -2,8 +2,16 @@
 
 
 
+// `argc` - ARGument Count
+// `argv` - ARGument Vector
+
+
+
 int main(int argc, const char** argv) {
     std::cout << "Argument Count: " << argc << std::endl;
+
+
+    std::cout << "The arguments are: " << std::endl;
 
     
     for (int i = 0; i < argc; ++i) {
