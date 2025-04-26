@@ -167,7 +167,9 @@ int getCorresponding(char letter) {
 
 
 
-Color getColor(const char* string) {    
+Color getColor(const char* string) {
+    assert(string   !=  nullptr );
+
     for (unsigned int i = 1; i < MAX_COLORS + 1; ++i) {
         if (strcmp(string, colors[i]) == 0) {
             return static_cast<Color>(i);
