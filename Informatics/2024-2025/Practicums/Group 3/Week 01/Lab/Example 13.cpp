@@ -4,8 +4,8 @@
 
 
 
-int min(const int argumentCount, ...);
-int max(const int argumentCount, ...);
+int min(int argumentCount, ...);
+int max(int argumentCount, ...);
 
 
 
@@ -25,7 +25,7 @@ int main() {
 
 
 
-int min(const int argumentCount, ...) {
+int min(int argumentCount, ...) {
     va_list arguments;
 
     va_start(arguments, argumentCount);
@@ -42,7 +42,7 @@ int min(const int argumentCount, ...) {
     return minNumber;
 }
 
-int max(const int argumentCount, ...) {
+int max(int argumentCount, ...) {
     va_list arguments;
 
     va_start(arguments, argumentCount);
