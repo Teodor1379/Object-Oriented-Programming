@@ -3,8 +3,10 @@
 
 
 enum class Day {
-    Saturday,   // 0
-    Sunday  ,   // 1
+    Invalid = -1,   // -1
+    Saturday,       //  0
+    Sunday  ,       //  1
+    Count   ,       //  2
 };
 
 enum class Color : char {
@@ -54,6 +56,9 @@ int main() {
     // std::cout << day;    Error!
 
     std::cout << static_cast<int>(day) << std::endl;
+
+
+    std::cout << "The number of defined days are: " << static_cast<int>(Day::Count) << std::endl;
 
 
     return 0;
