@@ -63,8 +63,8 @@ int readNumb() {
         std::cin >> number;
 
         if (std::cin.fail()) {
-            std::cin.clear  ();
-            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.clear  ()                                                  ;
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
         } else {
             return number;
         }
@@ -72,6 +72,8 @@ int readNumb() {
 }
 
 unsigned int readSize(const char* string) {
+    assert(string   != nullptr  );
+
     unsigned int size = 0;
 
     while (true) {
@@ -80,16 +82,17 @@ unsigned int readSize(const char* string) {
         std::cin >> size;
 
         if (std::cin.fail()) {
-            std::cin.clear  ();
-            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.clear  ()                                                  ;
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
         } else {
-            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.clear  ()                                                  ;
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
 
             if (size == 0) {
                 continue;
-            } else {
-                return size;
             }
+
+            return size;
         }
     }
 }
@@ -165,6 +168,10 @@ void printMatrix(const int* const* matrix, unsigned int rows, unsigned int cols)
 
 
 void transposeMatrix(const int* const* matrix, unsigned int rows, unsigned int cols) {
+    assert(matrix   !=  nullptr );
+    assert(rows     >=  0       );
+    assert(cols     >=  0       );
+
     std::cout << "The transposed matrix is: " << std::endl;
 
     for (unsigned int i = 0; i < cols; ++i) {
