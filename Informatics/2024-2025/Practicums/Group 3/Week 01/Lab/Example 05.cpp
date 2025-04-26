@@ -44,7 +44,6 @@ constexpr int a = 0;
 
 
 int main() {
-
     std::cout << "Namespace A, I: " << NamespaceA::i << std::endl;
 
     std::cout << "Namespace B, I: " << NamespaceB::i << std::endl;
