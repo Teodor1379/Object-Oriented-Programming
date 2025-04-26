@@ -77,21 +77,25 @@ int readElem() {
 std::size_t readSize() {
     std::size_t size    =   0;
 
-    while (size == 0) {
+    while (true) {
         std::cout << "Enter the size of the array: ";
 
         std::cin >> size;
 
         if (std::cin.fail()) {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.clear  ()                                                  ;
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
         } else {
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.clear  ()                                                  ;
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
+
+            if (size == 0) {
+                continue;
+            }
+    
             return size;
         }
     }
-
-    return size;
 }
 
 
@@ -133,6 +137,8 @@ void scenarioDynamicMemory2() {
 
 
 int* buildArray(std::size_t size) {
+    assert(size     !=  0       );
+
     int* array = new (std::nothrow) int[size];
 
     if (array != nullptr) {
