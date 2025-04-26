@@ -67,9 +67,12 @@ unsigned int readNumb() {
         std::cin >> number;
 
         if (std::cin.fail()) {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.clear  ()                                                  ;
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
         } else {
+            std::cin.clear  ()                                                  ;
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
+
             return number;
         }
     }
@@ -88,6 +91,8 @@ unsigned int revrNumb(unsigned int number) {
 }
 
 std::size_t readSize(const char* string) {
+    assert(string   !=  nullptr );
+
     std::size_t size = 0;
 
     while (true) {
@@ -96,9 +101,12 @@ std::size_t readSize(const char* string) {
         std::cin >> size;
 
         if (std::cin.fail()) {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.clear  ()                                                  ;
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
         } else {
+            std::cin.clear  ()                                                  ;
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
+
             if (size == 0) {
                 continue;
             }
