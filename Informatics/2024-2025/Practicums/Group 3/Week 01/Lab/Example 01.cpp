@@ -6,7 +6,7 @@
  * C++ Input Output
  *  - `std::cout`:  Used for output.    It is part of the C++ Standard Library.     Instance of the `ostream` class.
  *  - `std::cerr`:  Used for errors.    It is part of the C++ Standard Library.     Instance of the `ostream` class.
- *  - `std::clog`:  Used for loging.    It is part of the C++ Standard Library.     Instance of the `ostream` class.
+ *  - `std::clog`:  Used for logging.   It is part of the C++ Standard Library.     Instance of the `ostream` class.
  *  - `std::cin` :  Used for input.     It is part of the C++ Standard Library.     Instance of the `istream` class.
  *  - `std::endl`:  Used for inserting a newline character and flush the stream.
  *  - `std::cout` and `std::cin` are type-safe.
