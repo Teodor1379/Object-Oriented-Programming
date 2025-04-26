@@ -61,9 +61,9 @@ int inputSide1() {
         } else {
             if (side <= 0) {
                 continue;
-            } else {
-                return side;
             }
+
+            return side;
         }
     }
 }
@@ -82,9 +82,9 @@ double inputSide2() {
         } else {
             if (side <= 0.0) {
                 continue;
-            } else {
-                return side;
             }
+
+            return side;
         }
     }
 }
