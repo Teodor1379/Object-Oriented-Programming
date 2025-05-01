@@ -16,9 +16,9 @@ int main() {
     std::cout << std::noboolalpha << "Condition 2: " << condition2 << std::endl;
 
     
-    std::cout << std::dec << 1379 << std::endl; // Decimal      Base
-    std::cout << std::oct << 1379 << std::endl; // Octal        Base
-    std::cout << std::hex << 1379 << std::endl; // Hexadecimal  Base
+    std::cout << "Dec: " << std::dec << 1379 << std::endl; // Decimal      Base
+    std::cout << "Oct: " << std::oct << 1379 << std::endl; // Octal        Base
+    std::cout << "Hex: " << std::hex << 1379 << std::endl; // Hexadecimal  Base
 
 
     return 0;
