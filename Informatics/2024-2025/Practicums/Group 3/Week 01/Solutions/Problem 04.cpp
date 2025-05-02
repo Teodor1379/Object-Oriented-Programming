@@ -56,9 +56,12 @@ int inputSide1() {
         std::cin >> side;
 
         if (std::cin.fail()) {
-            std::cin.clear  ();
-            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.clear  ()                                                  ;
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
         } else {
+            std::cin.clear  ()                                                  ;
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
+
             if (side <= 0) {
                 continue;
             }
@@ -77,9 +80,12 @@ double inputSide2() {
         std::cin >> side;
 
         if (std::cin.fail()) {
-            std::cin.clear  ();
-            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.clear  ()                                                  ;
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
         } else {
+            std::cin.clear  ()                                                  ;
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
+
             if (side <= 0.0) {
                 continue;
             }
