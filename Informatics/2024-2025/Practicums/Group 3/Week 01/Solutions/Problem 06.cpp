@@ -169,8 +169,8 @@ void printMatrix(const int* const* matrix, unsigned int rows, unsigned int cols)
 
 void transposeMatrix(const int* const* matrix, unsigned int rows, unsigned int cols) {
     assert(matrix   !=  nullptr );
-    assert(rows     >=  0       );
-    assert(cols     >=  0       );
+    assert(rows     !=  0       );
+    assert(cols     !=  0       );
 
     std::cout << "The transposed matrix is: " << std::endl;
 
