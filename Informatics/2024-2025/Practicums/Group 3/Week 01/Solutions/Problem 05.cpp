@@ -75,8 +75,8 @@ int readNumb() {
         std::cin >> number;
 
         if (std::cin.fail()) {
-            std::cin.clear  ();
-            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.clear  ()                                                  ;
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
         } else {
             return number;
         }
@@ -86,7 +86,7 @@ int readNumb() {
 unsigned int readSize() {
     unsigned int size = 0;
 
-    while (size == 0) {
+    while (true) {
         std::cout << "Enter the size of the array: ";
 
         std::cin >> size;
@@ -94,8 +94,6 @@ unsigned int readSize() {
         if (std::cin.fail()) {
             std::cin.clear  ()                                                  ;
             std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
-
-            size = 0;
         } else {
             std::cin.clear  ()                                                  ;
             std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
@@ -103,8 +101,6 @@ unsigned int readSize() {
             return size;
         }
     }
-
-    return size;
 }
 
 
