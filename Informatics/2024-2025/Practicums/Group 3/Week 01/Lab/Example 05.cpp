@@ -24,8 +24,8 @@ namespace NamespaceB {
     using namespace NamespaceB1;
     using namespace NamespaceB2;
 
-    // int number1 = n; Ambigious - NamespaceB1::n or NamespaceB2::n
-    // int number2 = m; Ambigious - NamespaceB1::m or NamespaceB2::m
+    // int number1 = n; Ambiguous - NamespaceB1::n or NamespaceB2::n
+    // int number2 = m; Ambiguous - NamespaceB1::m or NamespaceB2::m
 
     int number1 = NamespaceB1::n;
     int number2 = NamespaceB2::n;
