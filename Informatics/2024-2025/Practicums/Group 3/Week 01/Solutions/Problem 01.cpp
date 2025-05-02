@@ -43,11 +43,11 @@ unsigned long long int readLimit() {
         std::cin >> limit;
 
         if (std::cin.fail()) {
-            std::cin.clear  ();
-            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.clear  ()                                                  ;
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
         } else {
-            std::cin.clear  ();
-            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.clear  ()                                                  ;
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
 
             return limit;
         }
