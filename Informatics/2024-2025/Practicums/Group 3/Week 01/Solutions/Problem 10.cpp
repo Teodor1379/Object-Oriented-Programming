@@ -15,8 +15,8 @@ unsigned int    findPowerTwo(unsigned int number);
 
 
 
-int*    buildArray(                     unsigned int& size,  unsigned int& capacity );
-void    clearArray(        int*& array                                              );
+int*    buildArray(                     const unsigned int& size,  const unsigned int& capacity );
+void    clearArray(        int*& array                                                          );
 
 void    inputArray(         int* array, const unsigned int& size,   const unsigned int& capacity );
 void    printArray(const    int* array, const unsigned int& size,   const unsigned int& capacity );
@@ -124,7 +124,7 @@ unsigned int findPowerTwo(unsigned int number) {
 
 
 
-int* buildArray(unsigned int& size, unsigned int& capacity) {
+int* buildArray(const unsigned int& size, const unsigned int& capacity) {
     assert(size     !=  0   );
     assert(capacity !=  0   );
 
