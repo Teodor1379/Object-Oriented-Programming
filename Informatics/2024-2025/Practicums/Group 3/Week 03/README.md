@@ -55,7 +55,7 @@
 
 ## Задача 5
 
-![Static Badge](https://img.shields.io/badge/medium-green)
+![Static Badge](https://img.shields.io/badge/medium-yellow)
 
 ### 📖 Описание:
 
