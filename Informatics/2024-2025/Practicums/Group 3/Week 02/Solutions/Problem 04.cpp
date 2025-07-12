@@ -1,5 +1,4 @@
 #include <cassert>
-
 #include <cstring>
 
 #include <limits>
@@ -9,6 +8,11 @@
 
 
 #define MAX 256
+
+
+
+const unsigned int  minOption   =   1;
+const unsigned int  maxOption   =   3;
 
 
 
@@ -102,6 +106,9 @@ Ninja*  filterNinjasGender  (const Ninja* ninjas, unsigned int size, unsigned in
 int main() {
     unsigned int size = readSize();
 
+    std::cout << std::endl;
+    std::cout << std::endl;
+
 
     Ninja* ninjas = buildArray(size);
 
@@ -116,18 +123,22 @@ int main() {
     unsigned int option = 0;
 
     do {
-        std::cout << "Enter the filter of the ninjas: " << std::endl;
+        std::cout << "\nEnter the filter of the ninjas:\n" << std::endl;
 
         std::cout << "1. Belt"      << std::endl;
         std::cout << "2. Weapon"    << std::endl;
         std::cout << "3. Gender"    << std::endl;
 
+        std::cout << std::endl;
+
         option = readOptn();
-    } while (option < 1 || option > 3);
+    } while (option < minOption || option > maxOption);
 
 
     switch (option) {
         case 1: {
+            std::cout << std::endl;
+
             char* belt = buildString();
 
             if (belt == nullptr) {
@@ -145,6 +156,8 @@ int main() {
 
                 clearString(belt);
 
+                clearArray(filteredNinjas);
+
                 return 2;
             }
 
@@ -156,6 +169,8 @@ int main() {
         }; break;
 
         case 2: {
+            std::cout << std::endl;
+
             char* weapon = buildString();
 
             if (weapon == nullptr) {
@@ -173,6 +188,8 @@ int main() {
 
                 clearString(weapon);
 
+                clearArray(filteredNinjas);
+
                 return 2;
             }
 
@@ -186,6 +203,8 @@ int main() {
         case 3: {
             bool gender = false;
 
+            std::cout << std::endl;
+
             std::cout << "Input the gender: ";
 
             std::cin >> gender;
@@ -196,6 +215,8 @@ int main() {
 
             if (filteredNinjas == nullptr) {
                 std::cout << "Applying Filter... ERROR!" << std::endl;
+
+                clearArray(filteredNinjas);
 
                 return 2;
             }
@@ -321,6 +342,8 @@ Ninja buildNinja() {
     std::cout << "Enter the weapon      of the ninja: ";    std::cin >> weaponString    ;
     std::cout << "Enter the gender      of the ninja: ";    std::cin >> result.gender   ;
 
+    std::cout << std::endl;
+
 
     result.belt     = findBelt  (beltString     );
     result.weapon   = findWeapon(weaponString   );
@@ -338,14 +361,26 @@ void printNinja(const Ninja& ninja) {
 
     std::cout << "The first name    of the ninja is: "  << ninja.firstName      << std::endl;
     std::cout << "The third name    of the ninja is: "  << ninja.thirdName      << std::endl;
-    std::cout << "The belt          of the ninja is: "  << belts[beltIndex]     << std::endl;
-    std::cout << "The weapon        of the ninja is: "  << weapons[weaponIndex] << std::endl;
+
+    if (ninja.belt == Belt::UNKNOWN) {
+        std::cout << "The belt          of the ninja is: "  << "UNKNOWN"            << std::endl;
+    } else {
+        std::cout << "The belt          of the ninja is: "  << belts[beltIndex]     << std::endl;
+    }
+
+    if (ninja.weapon == Weapon::INVALID) {
+        std::cout << "The weapon        of the ninja is: "  << "INVALID"            << std::endl;
+    } else {
+        std::cout << "The weapon        of the ninja is: "  << weapons[weaponIndex] << std::endl;
+    }
     
     if (ninja.gender) {
         std::cout << "The gender        of the ninja is: "  << "MALE"               << std::endl;
     } else {
         std::cout << "The gender        of the ninja is: "  << "FEMALE"             << std::endl;
     }
+
+    std::cout << std::endl;
 }
 
 
@@ -379,6 +414,8 @@ void inputArray(Ninja* ninjas, unsigned int size) {
     
     std::cout << "Enter the ninjas in your program: " << std::endl;
 
+    std::cout << std::endl;
+
     for (unsigned int i = 0; i < size; ++i) {
         ninjas[i] = buildNinja();
 
@@ -390,7 +427,11 @@ void printArray(const Ninja* ninjas, unsigned int size) {
     assert(ninjas   !=  nullptr );
     assert(size     !=  0       );
 
+    std::cout << std::endl;
+
     std::cout << "The ninjas in your program are: " << std::endl;
+
+    std::cout << std::endl;
 
     for (unsigned int i = 0; i < size; ++i) {
         printNinja(ninjas[i]);
@@ -460,6 +501,12 @@ Ninja* filterNinjasBelt(const Ninja* ninjas, unsigned int size, unsigned int& fi
     assert(belt     !=  Belt::COUNT     );
 
     filteredSize = countNinjasBelt(ninjas, size, belt);
+
+    if (filteredSize == 0) {
+        filteredSize = 0;
+
+        return nullptr;
+    }
 
     Ninja* filteredNinjas = new (std::nothrow) Ninja[filteredSize]();
 
