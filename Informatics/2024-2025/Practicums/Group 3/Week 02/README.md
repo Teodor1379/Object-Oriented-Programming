@@ -160,142 +160,213 @@ The kind of Complex Number 4 is: CMPL
 
 ### 📖 Описание:
 
-Създайте програма, която има реализирана структура `Ninja`, която има първо име, трето име, вид колан, вид оръжие, както и пол. Първото име има максимален размер от `256` символа. Третото име има максимален размер от `256` символа. Видът колан да е изброен тип по преценка на програмиста. Видът оръжие да е изброен тип по преценка на програмиста. Полът да бъде булев резултат. Реализирайте функции за създаване на нинджа, за извеждане на информацията за нинджа на стандартния изход, за филтриране на нинджи по вид колан, за филтриране на нинджи по вид оръжие, за филтриране на нинджи по пол.
+Създайте програма, която има реализирана структура `Ninja`, която има първо име, трето име, вид колан, вид оръжие, както и пол. Първото име има максимален размер от `256` символа. Третото име има максимален размер от `256` символа. Видът колан да е изброен тип по преценка на програмиста. Видът оръжие да е изброен тип по преценка на програмиста. Полът да бъде булев резултат. Реализирайте функции за създаване на нинджа, за извеждане на информацията за нинджа на стандартния изход, за филтриране на нинджи по вид колан, за филтриране на нинджи по вид оръжие, за филтриране на нинджи по пол. Приемете, че данните за филтрите са валидни.
 
 Направете съответните проверки за това дали нинджата има коректно зададено първо име и коректно зададено трето име. Всяко име трябва да е непразно, да не съдържа цифри, да не съдържа невалидни символи и да използва конвенцията за имена, т.е. първата буква е главна латинска буква, а останалите букви са малки латински букви.
 
 ### 💡 Примери:
 
 ```
-Enter the number of ninjas:
+Enter the number of ninjas: 3
+
 
 Enter the ninjas in your program:
 
-Enter the first name    of the ninja:
-Enter the third name    of the ninja:
-Enter the belt          of the ninja:
-Enter the weapon        of the ninja:
-Enter the gender        of the ninja:
+Enter the first name    of the ninja: Hattori
+Enter the third name    of the ninja: Hanzo
+Enter the belt          of the ninja: Black
+Enter the weapon        of the ninja: Katana
+Enter the gender        of the ninja: 1
 
-Enter the first name    of the ninja:
-Enter the third name    of the ninja:
-Enter the belt          of the ninja:
-Enter the weapon        of the ninja:
-Enter the gender        of the ninja:
+Enter the first name    of the ninja: Ishikawa
+Enter the third name    of the ninja: Goemon
+Enter the belt          of the ninja: White
+Enter the weapon        of the ninja: Sai
+Enter the gender        of the ninja: 1
 
-Enter the first name    of the ninja:
-Enter the third name    of the ninja:
-Enter the belt          of the ninja:
-Enter the weapon        of the ninja:
-Enter the gender        of the ninja:
+Enter the first name    of the ninja: Fuma
+Enter the third name    of the ninja: Kotaro
+Enter the belt          of the ninja: Red
+Enter the weapon        of the ninja: Nunchaku
+Enter the gender        of the ninja: 1
+
+
+Enter the filter of the ninjas:
+1. Belt
+2. Weapon
+3. Gender
+
+Enter the option from the menu: 1
+
+Input the string: Black
+
+The ninjas in your program are:
+
+The first name  of the ninja is: Hattori
+The third name  of the ninja is: Hanzo
+The belt        of the ninja is: Black
+The weapon      of the ninja is: Katana
+The gender      of the ninja is: MALE
 ```
 
 ```
-Enter the number of ninjas:
+Enter the number of ninjas: 7
+
 
 Enter the ninjas in your program:
 
-Enter the first name    of the ninja:
-Enter the third name    of the ninja:
-Enter the belt          of the ninja:
-Enter the weapon        of the ninja:
-Enter the gender        of the ninja:
+Enter the first name    of the ninja: Leonardo
+Enter the third name    of the ninja: San
+Enter the belt          of the ninja: Black
+Enter the weapon        of the ninja: Katana
+Enter the gender        of the ninja: 1
 
-Enter the first name    of the ninja:
-Enter the third name    of the ninja:
-Enter the belt          of the ninja:
-Enter the weapon        of the ninja:
-Enter the gender        of the ninja:
+Enter the first name    of the ninja: Raphael
+Enter the third name    of the ninja: San
+Enter the belt          of the ninja: Black
+Enter the weapon        of the ninja: Sai
+Enter the gender        of the ninja: 1
 
-Enter the first name    of the ninja:
-Enter the third name    of the ninja:
-Enter the belt          of the ninja:
-Enter the weapon        of the ninja:
-Enter the gender        of the ninja:
+Enter the first name    of the ninja: Donatello
+Enter the third name    of the ninja: San
+Enter the belt          of the ninja: Black
+Enter the weapon        of the ninja: BoStaff
+Enter the gender        of the ninja: 1
 
-Enter the first name    of the ninja:
-Enter the third name    of the ninja:
-Enter the belt          of the ninja:
-Enter the weapon        of the ninja:
-Enter the gender        of the ninja:
+Enter the first name    of the ninja: Michelangelo
+Enter the third name    of the ninja: San
+Enter the belt          of the ninja: Black
+Enter the weapon        of the ninja: Nunchaku
+Enter the gender        of the ninja: 1
 
-Enter the first name    of the ninja:
-Enter the third name    of the ninja:
-Enter the belt          of the ninja:
-Enter the weapon        of the ninja:
-Enter the gender        of the ninja:
+Enter the first name    of the ninja: Splinter
+Enter the third name    of the ninja: San
+Enter the belt          of the ninja: Black
+Enter the weapon        of the ninja: Naginata
+Enter the gender        of the ninja: 1
 
-Enter the first name    of the ninja:
-Enter the third name    of the ninja:
-Enter the belt          of the ninja:
-Enter the weapon        of the ninja:
-Enter the gender        of the ninja:
+Enter the first name    of the ninja: Karai
+Enter the third name    of the ninja: Saki
+Enter the belt          of the ninja: Black
+Enter the weapon        of the ninja: Katana
+Enter the gender        of the ninja: 0
 
-Enter the first name    of the ninja:
-Enter the third name    of the ninja:
-Enter the belt          of the ninja:
-Enter the weapon        of the ninja:
-Enter the gender        of the ninja:
+Enter the first name    of the ninja: April
+Enter the third name    of the ninja: O'Neil
+Enter the belt          of the ninja: Green
+Enter the weapon        of the ninja: Sai
+Enter the gender        of the ninja: 0
+
+
+Enter the filter of the ninjas:
+
+1. Belt
+2. Weapon
+3. Gender
+
+Enter the option from the menu: 2
+
+Input the string: Katana
+
+The ninjas in your program are:
+
+The first name  of the ninja is: Leonardo
+The third name  of the ninja is: San
+The belt        of the ninja is: Black
+The weapon      of the ninja is: Katana
+The gender      of the ninja is: MALE
+
+The first name  of the ninja is: Karai
+The third name  of the ninja is: Saki
+The belt        of the ninja is: Black
+The weapon      of the ninja is: Katana
+The gender      of the ninja is: FEMALE
 ```
 
 ```
-Enter the number of ninjas:
+Enter the number of ninjas: 9
 
 Enter the ninjas in your program:
 
-Enter the first name    of the ninja:
-Enter the third name    of the ninja:
-Enter the belt          of the ninja:
-Enter the weapon        of the ninja:
-Enter the gender        of the ninja:
+Enter the first name    of the ninja: Leonardo
+Enter the third name    of the ninja: San
+Enter the belt          of the ninja: Black
+Enter the weapon        of the ninja: Katana
+Enter the gender        of the ninja: 1
 
-Enter the first name    of the ninja:
-Enter the third name    of the ninja:
-Enter the belt          of the ninja:
-Enter the weapon        of the ninja:
-Enter the gender        of the ninja:
+Enter the first name    of the ninja: Raphael
+Enter the third name    of the ninja: San
+Enter the belt          of the ninja: Black
+Enter the weapon        of the ninja: Sai
+Enter the gender        of the ninja: 1
 
-Enter the first name    of the ninja:
-Enter the third name    of the ninja:
-Enter the belt          of the ninja:
-Enter the weapon        of the ninja:
-Enter the gender        of the ninja:
+Enter the first name    of the ninja: Donatello
+Enter the third name    of the ninja: San
+Enter the belt          of the ninja: Black
+Enter the weapon        of the ninja: BoStaff
+Enter the gender        of the ninja: 1
 
-Enter the first name    of the ninja:
-Enter the third name    of the ninja:
-Enter the belt          of the ninja:
-Enter the weapon        of the ninja:
-Enter the gender        of the ninja:
+Enter the first name    of the ninja: Michelangelo
+Enter the third name    of the ninja: San
+Enter the belt          of the ninja: Black
+Enter the weapon        of the ninja: Nunchaku
+Enter the gender        of the ninja: 1
 
-Enter the first name    of the ninja:
-Enter the third name    of the ninja:
-Enter the belt          of the ninja:
-Enter the weapon        of the ninja:
-Enter the gender        of the ninja:
+Enter the first name    of the ninja: Oroku
+Enter the third name    of the ninja: Saki
+Enter the belt          of the ninja: Black
+Enter the weapon        of the ninja: Claws
+Enter the gender        of the ninja: 1
 
-Enter the first name    of the ninja:
-Enter the third name    of the ninja:
-Enter the belt          of the ninja:
-Enter the weapon        of the ninja:
-Enter the gender        of the ninja:
+Enter the first name    of the ninja: Miyamoto
+Enter the third name    of the ninja: Usagi
+Enter the belt          of the ninja: Black
+Enter the weapon        of the ninja: Katana
+Enter the gender        of the ninja: 1
 
-Enter the first name    of the ninja:
-Enter the third name    of the ninja:
-Enter the belt          of the ninja:
-Enter the weapon        of the ninja:
-Enter the gender        of the ninja:
+Enter the first name    of the ninja: April
+Enter the third name    of the ninja: O'Neil
+Enter the belt          of the ninja: Green
+Enter the weapon        of the ninja: Sai
+Enter the gender        of the ninja: 0
 
-Enter the first name    of the ninja:
-Enter the third name    of the ninja:
-Enter the belt          of the ninja:
-Enter the weapon        of the ninja:
-Enter the gender        of the ninja:
+Enter the first name    of the ninja: Karai
+Enter the third name    of the ninja: Saki
+Enter the belt          of the ninja: Black
+Enter the weapon        of the ninja: Katana
+Enter the gender        of the ninja: 0
 
-Enter the first name    of the ninja:
-Enter the third name    of the ninja:
-Enter the belt          of the ninja:
-Enter the weapon        of the ninja:
-Enter the gender        of the ninja:
+Enter the first name    of the ninja: Hamato
+Enter the third name    of the ninja: Yoshi
+Enter the belt          of the ninja: Black
+Enter the weapon        of the ninja: Katana
+Enter the gender        of the ninja: 1
+
+
+Enter the filter of the ninjas:
+
+1. Belt
+2. Weapon
+3. Gender
+
+Enter the option from the menu: 3
+
+Input the gender: FEMALE
+
+
+The ninjas in your program are:
+
+The first name  of the ninja is: April
+The third name  of the ninja is: O'Neil
+The belt        of the ninja is: Green
+The weapon      of the ninja is: Sai
+The gender      of the ninja is: FEMALE
+
+The first name  of the ninja is: Karai
+The third name  of the ninja is: Saki
+The belt        of the ninja is: Black
+The weapon      of the ninja is: Katana
+The gender      of the ninja is: FEMALE
 ```
 
 
@@ -305,7 +376,7 @@ Enter the gender        of the ninja:
 
 ### 📖 Описание:
 
-Създайте програма, която има реализирана структура, която ще представлява контейнер за масив от цели числа. Контейнерът да пази и размерът на масива. Реализирайте съответните методи за създаване на масив, за добавяне на елемент в края на масива, за премахване на елемент от края на масива, за извеждане на това дали масивът е празен, за извеждане на броя на елементите в масива. Демонстрирайте работата на вашата програма, като въвеждате символи от стандартния вход до достигане на `0`, които да добавяте в масива, а след това премахнете последните `3` от добавените елементи, които току-що добавихте, ако е възможно. В началото на програмата, в края на програмата и преди премахването на елементи изведете статистика за получения масив.
+Създайте програма, която има реализирана структура, която ще представлява контейнер за масив от цели числа. Контейнерът да пази и размерът на масива. Реализирайте съответните методи за създаване на масив, за добавяне на елемент в края на масива, за премахване на елемент от края на масива, за извеждане на това дали масивът е празен, за извеждане на броя на елементите в масива. Демонстрирайте работата на вашата програма, като въвеждате числа от стандартния вход до достигане на `0`, които да добавяте в масива, а след това премахнете последните `3` от добавените елементи, които току-що добавихте, ако е възможно. В началото на програмата, в края на програмата и преди премахването на елементи изведете статистика за получения масив.
 
 ### 💡 Примери:
 
@@ -314,16 +385,21 @@ The SIZE        of the array is: 0
 The CAPACITY    of the array is: 2
 Is the array empty: true
 
-Enter the numbers: 1 3 7 9
+
+Enter the numbers: 1 3 7 9 0
+
 
 The SIZE        of the array is: 4 
-The CAPACITY    of the array is: 8
+The CAPACITY    of the array is: 4
 Is the array empty: false
+
 The elements of the array are: 1 3 7 9
 
+
 The SIZE        of the array is: 1
-The CAPACITY    of the array is: 8
+The CAPACITY    of the array is: 4
 Is the array empty: false
+
 The elements of the array are: 1
 ```
 
@@ -332,15 +408,22 @@ The SIZE        of the array is: 0
 The CAPACITY    of the array is: 2
 Is the array empty: true
 
-Enter the numbers:
 
-The SIZE        of the array is:
-The CAPACITY    of the array is:
+Enter the numbers: 1 2 3 4 5 6 0
+
+
+The SIZE        of the array is: 6
+The CAPACITY    of the array is: 8
 Is the array empty: false
 
-The SIZE        of the array is:
-The CAPACITY    of the array is:
-Is the array empty: 
+The elements of the array are: 1 2 3 4 5 6
+
+
+The SIZE        of the array is: 3
+The CAPACITY    of the array is: 8
+Is the array empty: false
+
+The elements of the array are: 1 2 3
 ```
 
 ```
@@ -348,15 +431,19 @@ The SIZE        of the array is: 0
 The CAPACITY    of the array is: 2
 Is the array empty: true
 
-Enter the numbers:
 
-The SIZE        of the array is:
-The CAPACITY    of the array is:
+Enter the numbers: 1 2 3 0
+
+
+The SIZE        of the array is: 3
+The CAPACITY    of the array is: 4
 Is the array empty: false
 
-The SIZE        of the array is:
-The CAPACITY    of the array is:
-Is the array empty: false
+The elements of the array are: 1 2 3
+
+The SIZE        of the array is: 0
+The CAPACITY    of the array is: 4
+Is the array empty: true
 ```
 
 ## Задача 6
@@ -376,7 +463,7 @@ Is the array empty: false
 
 ### 📖 Описание:
 
-Създайте програма, която има реализирана структура за книга и реализирана структура за библиотека. Книгата съответно да притежава полета за заглавие, заделено с точна големина, име на автора, заделено с точна големина, цена, както и брой копия в библиотеката. Библиотеката съответно да притежава полета за адрес, масив от книги, както и брой читатели в библиотеката. Библиотеката да поддържа най-много `13` различни книги. На стандартния изход изведете средната цена на книгите в библиотеката, книгата с най-много копия, книгата с най-много копия, минималната цена на книга, максималната цена на книга.
+Създайте програма, която има реализирана структура за книга и реализирана структура за библиотека. Книгата съответно да притежава полета за заглавие, заделено с точна големина, име на автора, заделено с точна големина, цена, както и брой копия в библиотеката. Библиотеката съответно да притежава полета за адрес, масив от книги, както и брой читатели в библиотеката. Библиотеката да поддържа най-много `13` различни книги. На стандартния изход изведете средната цена на книгите в библиотеката, книгата с най-малко копия, книгата с най-много копия, минималната цена на книга, максималната цена на книга.
 
 ### 💡 Примери:
 
