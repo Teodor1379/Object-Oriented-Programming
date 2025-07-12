@@ -11,7 +11,16 @@
 
 
 
+unsigned int calledStats = 0;
+
+
+
 struct Array {
+    // Usually, the array has size and capacity.
+
+    // Size     - the actual    size of the array space.
+    // Capacity - the logical   size of the array space.
+
     unsigned int    size        =   0       ;
     unsigned int    capacity    =   0       ;
     int*            elements    =   nullptr ;
@@ -58,7 +67,9 @@ int main() {
     std::cout << "Enter the numbers: ";
 
     while (true) {
-        int number = readNumber();
+        int number = 0; // readNumber();
+
+        std::cin >> number;
 
         if (number == 0) {
             break;
@@ -66,8 +77,6 @@ int main() {
 
         pushBack(array, number);
     }
-
-    popBack(array);
 
     printInfor(array);
 
@@ -222,9 +231,10 @@ void printInfor(const Array& array) {
     assert(array.capacity   !=  0       );
     assert(array.elements   !=  nullptr );
 
-    std::cout << std::endl;
-    std::cout << std::endl;
-    std::cout << std::endl;
+    if (calledStats == 1) {
+        std::cout << std::endl;
+        std::cout << std::endl;
+    }
 
     std::cout << "The SIZE      of the array is:    "   << getSize      (array) << std::endl;
     std::cout << "The CAPACITY  of the array is:    "   << getCapacity  (array) << std::endl;
@@ -232,10 +242,15 @@ void printInfor(const Array& array) {
     std::cout << "Is the array empty: " << std::boolalpha << isEmpty(array) << std::endl;
 
     if (isEmpty(array) == false) {
+        std::cout << std::endl;
+
         printArray(array);
     }
 
-    std::cout << std::endl;
-    std::cout << std::endl;
-    std::cout << std::endl;
+    calledStats = calledStats + 1;
+
+    if (calledStats < 3) {
+        std::cout << std::endl;
+        std::cout << std::endl;
+    }
 }
