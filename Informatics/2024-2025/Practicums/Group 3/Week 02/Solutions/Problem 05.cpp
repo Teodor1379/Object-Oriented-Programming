@@ -28,10 +28,6 @@ struct Array {
 
 
 
-int readNumber();
-
-
-
 Array   initializeArray     (       );
 void    deinitializeArray   (Array& );
 
@@ -67,7 +63,7 @@ int main() {
     std::cout << "Enter the numbers: ";
 
     while (true) {
-        int number = 0; // readNumber();
+        int number = 0;
 
         std::cin >> number;
 
@@ -89,26 +85,6 @@ int main() {
     deinitializeArray(array);
 
     return 0;
-}
-
-
-
-int readNumber() {
-    int number = 0;
-
-    while (true) {
-        std::cin >> number;
-
-        if (std::cin.fail()) {
-            std::cin.clear  ()                                                  ;
-            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
-        } else {
-            std::cin.clear  ()                                                  ;
-            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
-
-            return number;
-        }
-    }
 }
 
 
