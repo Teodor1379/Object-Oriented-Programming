@@ -28,7 +28,7 @@ struct Array {
 
 
 
-Array   initializeArray     (       );
+Array     initializeArray   (       );
 void    deinitializeArray   (Array& );
 
 
