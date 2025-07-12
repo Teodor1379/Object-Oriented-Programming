@@ -484,7 +484,7 @@ The permissions are: rw-
 
 ```
 Enter the number: 7
-The permissions are: rwe
+The permissions are: rwx
 ```
 
 
