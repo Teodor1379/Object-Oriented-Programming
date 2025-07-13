@@ -21,13 +21,13 @@ void printNumbers(std::ifstream&);
 
 
 
-int findMinNumber(std::ifstream&);
-int findMaxNumber(std::ifstream&);
+bool findMinNumber(std::ifstream&, int& );
+bool findMaxNumber(std::ifstream&, int& );
 
 
 
 int main() {
-    // writeNumbers();
+    writeNumbers();
 
     std::ifstream stream(FILE_PATH, std::ios::binary);
 
@@ -41,8 +41,11 @@ int main() {
 
     std::cout << std::endl;
 
-    std::cout << "Min Number is: " << findMinNumber(stream) << std::endl;
-    std::cout << "Max Number is: " << findMaxNumber(stream) << std::endl;
+    int minValue = 0;
+    int maxValue = 0;
+
+    std::cout << "Min Number is: " << (findMinNumber(stream, minValue) ? minValue : 0) << std::endl;
+    std::cout << "Max Number is: " << (findMaxNumber(stream, maxValue) ? maxValue : 0) << std::endl;
 
     stream.close();
 
@@ -60,6 +63,8 @@ void writeNumbers() {
         return;
     }
 
+    std::cout << "Enter numbers: ";
+
     while (true) {
         int number = 0;
 
@@ -69,13 +74,13 @@ void writeNumbers() {
             break;
         }
 
+        stream.write(reinterpret_cast<const char*>(&number), sizeof(int));
+
         if (stream.good() == false) {
             std::cerr << ERROR_FILE_W << std::endl;
 
             break;
         }
-
-        stream.write(reinterpret_cast<const char*>(&number), sizeof(int));
     }
 
     stream.close();
@@ -86,24 +91,22 @@ void writeNumbers() {
 void printNumbers(std::ifstream& stream) {
     stream.clear();
 
-    stream.seekg(std::ios_base::beg);
+    stream.seekg(0, std::ios_base::beg);
 
     std::cout << "The numbers are: ";
 
-    while (true) {
-        int number = 0;
+    int number = 0; bool success = false;
 
-        stream.read(reinterpret_cast<char*>(&number), sizeof(int));
-
-        if (stream.eof()) {
-            break;
-        }
-
-        if (stream.good() == false) {
-            std::cerr << ERROR_FILE_R << std::endl;
-        }
-
+    while (stream.read(reinterpret_cast<char*>(&number), sizeof(int))) {
         std::cout << number << ' ';
+
+        success = true;        
+    }
+
+    if (stream.eof() == false) {
+        std::cerr << ERROR_FILE_R << std::endl;
+    } else if (success == false) {
+        std::cout << "No Numbers!";
     }
 
     std::cout << std::endl;
@@ -111,78 +114,54 @@ void printNumbers(std::ifstream& stream) {
 
 
 
-int findMinNumber(std::ifstream& stream) {
+bool findMinNumber(std::ifstream& stream, int& minNumber) {
     stream.clear();
 
-    stream.seekg(std::ios_base::beg);
+    stream.seekg(0, std::ios_base::beg);
 
-    int result = 0;
+    int result = 0; bool success = false;
 
-    stream.read(reinterpret_cast<char*>(&result), sizeof(int));
+    while (stream.read(reinterpret_cast<char*>(&result), sizeof(int))) {
+        if (success == false) {
+            minNumber = result;
 
-    if (stream.good() == false) {
+            success = true;
+        } else {
+            minNumber = std::min(minNumber, result);
+        }
+    }
+
+    if (stream.eof() == false && success == false) {
         std::cerr << ERROR_FILE_R << std::endl;
 
-        return 0;
+        return false;
     }
 
-    while (true) {
-        int current = 0;
-
-        stream.read(reinterpret_cast<char*>(&current), sizeof(int));
-
-        if (stream.eof()) {
-            break;
-        }
-
-        if (stream.good() == false) {
-            std::cerr << ERROR_FILE_R << std::endl;
-
-            break;
-        }
-
-        if (result > current) {
-            result = current;   
-        }
-    }
-
-    return result;
+    return success;
 }
 
-int findMaxNumber(std::ifstream& stream) {
+bool findMaxNumber(std::ifstream& stream, int& maxNumber) {
     stream.clear();
 
-    stream.seekg(std::ios_base::beg);
+    stream.seekg(0, std::ios_base::beg);
 
-    int result = 0;
+    int result = 0; bool success = false;
 
-    stream.read(reinterpret_cast<char*>(&result), sizeof(int));
+    while (stream.read(reinterpret_cast<char*>(&result), sizeof(int))) {
+        if (success == false) {
+            maxNumber = result;
 
-    if (stream.good() == false) {
+            success = true;
+        } else {
+            maxNumber = std::max(maxNumber, result);
+        }
+    }
+
+    if (stream.eof() == false && success == false) {
         std::cerr << ERROR_FILE_R << std::endl;
 
-        return 0;
+        return false;
     }
 
-    while (true) {
-        int current = 0;
-
-        stream.read(reinterpret_cast<char*>(&current), sizeof(int));
-
-        if (stream.eof()) {
-            break;
-        }
-
-        if (stream.good() == false) {
-            std::cerr << ERROR_FILE_R << std::endl;
-
-            break;
-        }
-
-        if (result < current) {
-            result = current;
-        }
-    }
-
-    return result;
+    return success;
 }
