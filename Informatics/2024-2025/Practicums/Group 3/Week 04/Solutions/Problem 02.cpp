@@ -25,7 +25,7 @@ int main() {
 
     stream.seekg(0, std::ios_base::end);
 
-    std::cout << "File Size is: " << stream.tellg() << std::endl;
+    std::cout << "\nFile Size is: " << stream.tellg() << std::endl;
 
     stream.close();
 
