@@ -142,7 +142,7 @@ char* getFileName() {
     char* buffer = new (std::nothrow) char[MAX];
 
     if (buffer == nullptr) {
-        exit(EXIT_FAILURE);
+        std::exit(EXIT_FAILURE);
     }
 
     std::cout << "Enter the file path: ";
