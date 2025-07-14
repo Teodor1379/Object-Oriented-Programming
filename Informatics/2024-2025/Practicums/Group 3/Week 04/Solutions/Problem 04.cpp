@@ -138,7 +138,7 @@ char* getFileName() {
 
 
 Person* buildPersons(unsigned int& size, const char* filePath) {
-    std::ifstream stream(filePath);
+    std::ifstream stream(filePath, std::ios::in | std::ios::binary);
 
     if (stream.is_open() == false) {
         std::cerr << ERROR_FILE_O << std::endl;
@@ -190,7 +190,7 @@ void writePersons(const Person* persons, unsigned int size, const char* filePath
     assert(size     !=  0       );
     assert(filePath !=  nullptr );
 
-    std::ofstream stream(filePath);
+    std::ofstream stream(filePath, std::ios::out | std::ios::binary);
 
     if (stream.is_open() == false) {
         std::cerr << ERROR_FILE_O << std::endl;
