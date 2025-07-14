@@ -1,4 +1,5 @@
 #include <cassert>
+
 #include <cmath>
 
 #include <iomanip>
@@ -23,6 +24,17 @@ struct Item {
 const char* ERROR_FILE_R = "Error while reading from    the file!";
 const char* ERROR_FILE_W = "Error while writing to      the file!";
 const char* ERROR_FILE_O = "Error while opening         the file!";
+const char* ERROR_FILE_D = "Error while operating with  the file!";
+
+const char* ERROR_STATUS_E = "EMPTY"    ;
+const char* ERROR_STATUS_C = "CORRUPTED";
+
+
+
+void generator();
+
+
+char* getFileName();
 
 
 
@@ -47,53 +59,15 @@ const Item* findMaxPriceItem(const Item*, unsigned int);
 
 
 int main() {
-    /*
-        const Item data1[3] = {
-            Item { 1.5, 1.0 },
-            Item { 1.0, 3.0 },
-            Item { 3.0, 9.0 }
-        };
+    // generator();
 
-        const Item data2[7] = {
-            Item { 1.1, 1.0 },
-            Item { 1.2, 2.0 },
-            Item { 1.3, 3.0 },
-            Item { 2.1, 1.0 },
-            Item { 2.2, 2.0 },
-            Item { 2.3, 3.0 },
-            Item { 9.0, 9.0 }
-        };
-
-        const Item data3[9] = {
-            Item { 1.0, 2.0 },
-            Item { 2.0, 1.0 },
-            Item { 3.0, 3.0 },
-            Item { 1.0, 1.0 },
-            Item { 2.0, 3.0 },
-            Item { 3.0, 2.0 },
-            Item { 1.0, 3.0 },
-            Item { 2.0, 2.0 },
-            Item { 3.0, 1.0 },
-        };
-
-        writeItems(data1, 3, "Items1.dat");
-        writeItems(data2, 7, "Items2.dat");
-        writeItems(data3, 9, "Items3.dat");
-    */
-
-    char buffer[MAX] = { 0 };
-
-    std::cout << "Enter the file path: ";
-
-    std::cin.getline(buffer, MAX, '\n');
-
-    std::cout << std::endl;
+    char* filePath = getFileName();
 
 
     unsigned int size = 0;
 
 
-    Item* items = buildItems(size, buffer);
+    Item* items = buildItems(size, filePath);
 
     if (items == nullptr) {
         std::cout << "Building Items... ERROR!" << std::endl;
@@ -118,7 +92,66 @@ int main() {
     clearItems(items);
 
 
+    delete[] filePath;
+
+    filePath = nullptr;
+
+
     return 0;
+}
+
+
+
+void generator() {
+    const Item data1[3] = {
+        Item { 1.5, 1.0 },
+        Item { 1.0, 3.0 },
+        Item { 3.0, 9.0 }
+    };
+
+    const Item data2[7] = {
+        Item { 1.1, 1.0 },
+        Item { 1.2, 2.0 },
+        Item { 1.3, 3.0 },
+        Item { 2.1, 1.0 },
+        Item { 2.2, 2.0 },
+        Item { 2.3, 3.0 },
+        Item { 9.0, 9.0 }
+    };
+
+    const Item data3[9] = {
+        Item { 1.0, 2.0 },
+        Item { 2.0, 1.0 },
+        Item { 3.0, 3.0 },
+        Item { 1.0, 1.0 },
+        Item { 2.0, 3.0 },
+        Item { 3.0, 2.0 },
+        Item { 1.0, 3.0 },
+        Item { 2.0, 2.0 },
+        Item { 3.0, 1.0 },
+    };
+
+    writeItems(data1, 3, "Items1.dat");
+    writeItems(data2, 7, "Items2.dat");
+    writeItems(data3, 9, "Items3.dat");
+}
+
+
+
+char* getFileName() {
+    char* buffer = new (std::nothrow) char[MAX];
+
+    if (buffer == nullptr) {
+        exit(EXIT_FAILURE);
+    }
+
+    std::cout << "Enter the file path: ";
+
+    std::cin.getline(buffer, MAX, '\n');
+
+    std::cout << std::endl;
+
+    return buffer;
 }
 
 
@@ -126,7 +159,7 @@ int main() {
 Item* buildItems(unsigned int& size, const char* filePath) {
     assert(filePath !=  nullptr );
 
-    std::ifstream stream(filePath, std::ios::binary);
+    std::ifstream stream(filePath, std::ios::in | std::ios::binary);
 
     if (stream.is_open() == false) {
         std::cerr << ERROR_FILE_O << std::endl;
@@ -136,27 +169,33 @@ Item* buildItems(unsigned int& size, const char* filePath) {
 
     stream.seekg(0, std::ios_base::end);
 
-    size = stream.tellg() / sizeof(Item);
+    std::streamsize fileSize = stream.tellg();
 
-    if (size == 0) {
-        std::cerr << "The file is empty!" << std::endl;
+    if (fileSize == 0) {
+        std::cout << ERROR_FILE_D << ' ' << ERROR_STATUS_E << std::endl;
 
         size = 0; return nullptr;
     }
 
+    if (fileSize % sizeof(Item) != 0) {
+        std::cout << ERROR_FILE_D << ' ' << ERROR_STATUS_C << std::endl;
+
+        size = 0; return nullptr;
+    }
+
+    size = fileSize / sizeof(Item);
+
     Item* items = new (std::nothrow) Item[size];
 
     if (items == nullptr) {
-        size = 0;
-
-        return nullptr;
+        size = 0; return nullptr;
     }
 
     stream.seekg(0, std::ios_base::beg);
 
     stream.read(reinterpret_cast<char*>(items), size * sizeof(Item));
 
-    if (stream.good() == false) {
+    if (stream.fail() || stream.gcount() != static_cast<std::streamsize>(size * sizeof(Item))) {
         std::cerr << ERROR_FILE_R << std::endl;
 
         delete[] items; size = 0;
@@ -180,7 +219,7 @@ void writeItems(const Item* items, unsigned int size, const char* filePath) {
     assert(size     !=  0       );
     assert(filePath !=  nullptr );
 
-    std::ofstream stream(filePath, std::ios::binary);
+    std::ofstream stream(filePath, std::ios::out | std::ios::binary);
 
     if (stream.is_open() == false) {
         std::cerr << ERROR_FILE_O << std::endl;
@@ -190,13 +229,19 @@ void writeItems(const Item* items, unsigned int size, const char* filePath) {
 
     stream.write(reinterpret_cast<const char*>(items), size * sizeof(Item));
 
-    if (stream.good() == false) {
+    if (stream.fail()) {
         std::cerr << ERROR_FILE_W << std::endl;
 
         return;
     }
 
     stream.close();
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_W << std::endl;
+
+        return;
+    }
 }
 
 void clearItems(Item*& items) {
