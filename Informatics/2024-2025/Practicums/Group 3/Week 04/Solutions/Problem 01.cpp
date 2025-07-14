@@ -27,7 +27,8 @@ bool findMaxNumber(std::ifstream&, int& );
 
 
 int main() {
-    writeNumbers();
+    // writeNumbers();
+
 
     std::ifstream stream(FILE_PATH, std::ios::binary);
 
@@ -39,15 +40,18 @@ int main() {
 
     printNumbers(stream);
 
+
     std::cout << std::endl;
 
-    int minValue = 0;
-    int maxValue = 0;
+    int32_t minValue = 0;
+    int32_t maxValue = 0;
 
     std::cout << "Min Number is: " << (findMinNumber(stream, minValue) ? minValue : 0) << std::endl;
     std::cout << "Max Number is: " << (findMaxNumber(stream, maxValue) ? maxValue : 0) << std::endl;
 
+
     stream.close();
+
 
     return 0;
 }
@@ -66,7 +70,7 @@ void writeNumbers() {
     std::cout << "Enter numbers: ";
 
     while (true) {
-        int number = 0;
+        int32_t number = 0;
 
         std::cin >> number;
 
@@ -76,14 +80,20 @@ void writeNumbers() {
 
         stream.write(reinterpret_cast<const char*>(&number), sizeof(int));
 
-        if (stream.good() == false) {
+        if (stream.fail()) {
             std::cerr << ERROR_FILE_W << std::endl;
 
-            break;
+            return;
         }
     }
 
     stream.close();
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_W << std::endl;
+
+        return;
+    }
 }
 
 
@@ -95,7 +105,7 @@ void printNumbers(std::ifstream& stream) {
 
     std::cout << "The numbers are: ";
 
-    int number = 0; bool success = false;
+    int32_t number = 0; bool success = false;
 
     while (stream.read(reinterpret_cast<char*>(&number), sizeof(int))) {
         std::cout << number << ' ';
@@ -119,7 +129,7 @@ bool findMinNumber(std::ifstream& stream, int& minNumber) {
 
     stream.seekg(0, std::ios_base::beg);
 
-    int result = 0; bool success = false;
+    int32_t result = 0; bool success = false;
 
     while (stream.read(reinterpret_cast<char*>(&result), sizeof(int))) {
         if (success == false) {
@@ -145,7 +155,7 @@ bool findMaxNumber(std::ifstream& stream, int& maxNumber) {
 
     stream.seekg(0, std::ios_base::beg);
 
-    int result = 0; bool success = false;
+    int32_t result = 0; bool success = false;
 
     while (stream.read(reinterpret_cast<char*>(&result), sizeof(int))) {
         if (success == false) {
