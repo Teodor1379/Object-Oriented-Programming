@@ -27,6 +27,14 @@ const char* ERROR_FILE_O = "Error while opening         the file!";
 
 
 
+void generator();
+
+
+
+char* getFileName();
+
+
+
 Point*  buildPoints(                unsigned int&,  const char* );
 void    clearPoints(        Point*                              );
 void    writePoints(const   Point*, unsigned int,   const char* );
@@ -48,52 +56,14 @@ Point*  findClosestPoints   (       Point*, unsigned int, unsigned int&  );
 
 
 int main() {
-    /*
-        Point data1[3] = {
-            { 1.0, 1.0 },
-            { 2.0, 2.0 },
-            { 3.0, 3.0 },
-        };
+    // generator();
 
-        Point data2[7] = {
-            { 0.0, 3.0 },
-            { 0.5, 2.5 },
-            { 1.0, 2.0 },
-            { 1.5, 1.5 },
-            { 2.0, 1.0 },
-            { 2.5, 0.5 },
-            { 3.0, 0.0 },
-        };
-
-        Point data3[9] = {
-            { 1.0, 1.0 },
-            { 2.0, 2.0 },
-            { 3.0, 3.0 },
-            { 1.0, 1.0 },
-            { 2.0, 2.0 },
-            { 3.0, 3.0 },
-            { 9.0, 9.0 },
-            { 9.0, 9.0 },
-            { 9.0, 9.0 },
-        };
-
-        writePoints(data1, 3, "Points1.bin");
-        writePoints(data2, 7, "Points2.bin");
-        writePoints(data3, 9, "Points3.bin");
-    */
-
-    char buffer[MAX] = { 0 };
-
-    std::cout << "Enter the file path: ";
-
-    std::cin.getline(buffer, MAX, '\n');
-
-    std::cout << std::endl;
+    char* filePath = getFileName();
 
     unsigned int size = 0;
 
 
-    Point* points = buildPoints(size, buffer);
+    Point* points = buildPoints(size, filePath);
 
     if (points == nullptr) {
         std::cerr << "Allocating Memory... ERROR!" << std::endl;
@@ -135,8 +105,67 @@ int main() {
     clearPoints(points  );
     clearPoints(closest );
 
+    
+    delete[] filePath;
+
+    filePath = nullptr;
+
 
     return 0;
+}
+
+
+
+void generator() {
+    Point data1[3] = {
+        { 1.0, 1.0 },
+        { 2.0, 2.0 },
+        { 3.0, 3.0 },
+    };
+
+    Point data2[7] = {
+        { 0.0, 3.0 },
+        { 0.5, 2.5 },
+        { 1.0, 2.0 },
+        { 1.5, 1.5 },
+        { 2.0, 1.0 },
+        { 2.5, 0.5 },
+        { 3.0, 0.0 },
+    };
+
+    Point data3[9] = {
+        { 1.0, 1.0 },
+        { 2.0, 2.0 },
+        { 3.0, 3.0 },
+        { 1.0, 1.0 },
+        { 2.0, 2.0 },
+        { 3.0, 3.0 },
+        { 9.0, 9.0 },
+        { 9.0, 9.0 },
+        { 9.0, 9.0 },
+    };
+
+    writePoints(data1, 3, "Points1.bin");
+    writePoints(data2, 7, "Points2.bin");
+    writePoints(data3, 9, "Points3.bin");
+}
+
+
+
+char* getFileName() {
+    char* buffer = new (std::nothrow) char[MAX];
+
+    if (buffer == nullptr) {
+        std::exit(EXIT_FAILURE);
+    }
+
+    std::cout << "Enter the file path: ";
+
+    std::cin.getline(buffer, MAX, '\n');
+
+    std::cout << std::endl;
+
+    return buffer;
 }
 
 
