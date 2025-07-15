@@ -25,6 +25,18 @@ struct Person {
 const char* ERROR_FILE_R = "Error while reading from    the file!";
 const char* ERROR_FILE_W = "Error while writing to      the file!";
 const char* ERROR_FILE_O = "Error while opening         the file!";
+const char* ERROR_FILE_D = "Error while operating with  the file!";
+
+const char* ERROR_STATUS_E = "EMPTY"    ;
+const char* ERROR_STATUS_C = "CORRUPTED";
+
+
+
+char* getFileName();
+
+
+
+void generator();
 
 
 
@@ -46,14 +58,6 @@ void printPersons(const char*);
 
 bool    findPersonSmallestAge  (const char*, Person&);
 bool    findPersonBiggestAge   (const char*, Person&);
-
-
-
-char* getFileName();
-
-
-
-void generator();
 
 
 
@@ -128,6 +132,56 @@ int main() {
 
 
 
+void generator() {
+    Person persons1[3] = {
+        { "John"    , "Wick"    , 52, },
+        { "Eve"     , "Macarro" , 20, },
+        { "Winston" , "Scott"   , 71, },
+    };
+
+    Person persons2[7] = {
+        { "Rick"    , "Grimes"  , 50,   },
+        { "Daryl"   , "Dyxon"   , 45,   },
+        { "Morgan"  , "Jones"   , 41,   },
+        { "Negan"   , "Smith"   , 52,   },
+        { "Carol"   , "Peletier", 49,   },
+        { "Maggie"  , "Green"   , 47,   },
+        { "Glenn"   , "Rhee"    , 35,   },
+    };
+
+    Person persons3[9] = {
+        { "Leon"    , "Kennedy"     , 21, },
+        { "Ada"     , "Wong"        , 24, },
+        { "Chris"   , "Redfield"    , 25, },
+        { "Claire"  , "Redfield"    , 19, },
+        { "Jill"    , "Valentine"   , 23, },
+        { "Albert"  , "Wesker"      , 38, },
+        { "Carlos"  , "Oliveira"    , 21, },
+        { "Josh"    , "Stone"       , 28, },
+        { "Alice"   , "Abernathy"   , 25, },
+    };
+
+    writePersons(persons1, 3, "Persons1.bin");
+    writePersons(persons2, 7, "Persons2.bin");
+    writePersons(persons3, 9, "Persons3.bin");
+}
+
+
+
+char* getFileName() {
+    char* buffer = new (std::nothrow) char[MAXF];
+
+    std::cout << "Enter the file path: ";
+
+    std::cin.getline(buffer, MAXF, '\n');
+
+    std::cout << std::endl;
+
+    return buffer;
+}
+
+
+
 Person* buildPersons(unsigned int& size, const char* file) {
     std::ifstream stream(file, std::ios::in | std::ios::binary);
 
@@ -139,23 +193,21 @@ Person* buildPersons(unsigned int& size, const char* file) {
 
     stream.seekg(0, std::ios_base::end);
 
-    unsigned int fileSize = stream.tellg();
+    std::streamsize fileSize = stream.tellg();
+
+    if (fileSize == 0) {
+        std::cerr << ERROR_FILE_D << ' ' << ERROR_STATUS_E << std::endl;
+
+        size = 0; return nullptr;
+    }
 
     if (fileSize % sizeof(Person) != 0) {
-        std::cerr << "Corrupted File!" << std::endl;
+        std::cerr << ERROR_FILE_D << ' ' << ERROR_STATUS_E << std::endl;
 
         size = 0; return nullptr;
     }
 
     size = fileSize / sizeof(Person);
-
-    if (size == 0) {
-        std::cerr << "Empty File!" << std::endl;
-
-        stream.close();
-
-        size = 0; return nullptr;
-    }
 
     Person* persons = new (std::nothrow) Person[size];
 
@@ -218,6 +270,12 @@ void writePersons(const Person* persons, unsigned int size, const char* file) {
     }
 
     stream.close();
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_W << std::endl;
+
+        return;
+    }
 }
 
 void printPersons(const Person* persons, unsigned int size) {
@@ -271,7 +329,7 @@ const Person* findPersonBiggestAge(const Person* persons, unsigned int size) {
 void printPersons(const char* filePath) {
     assert(filePath !=  nullptr );
 
-    std::ifstream stream(filePath);
+    std::ifstream stream(filePath, std::ios::in | std::ios::binary);
 
     if (stream.is_open() == false) {
         std::cerr << ERROR_FILE_O << std::endl;
@@ -281,27 +339,27 @@ void printPersons(const char* filePath) {
 
     stream.seekg(0, std::ios::end);
 
-    unsigned int fileSize = stream.tellg();
+    std::streamsize fileSize = stream.tellg();
 
     if (fileSize == 0) {
-        std::cerr << "Empty File!" << std::endl;
+        std::cerr << ERROR_FILE_D << ' ' << ERROR_STATUS_E << std::endl;
 
         return;
     }
 
     if (fileSize % sizeof(Person) != 0) {
-        std::cerr << "Corrupted File!" << std::endl;
+        std::cerr << ERROR_FILE_D << ' ' << ERROR_STATUS_C << std::endl;
 
         return;
     }
 
-    unsigned int size = fileSize / sizeof(Person);
+    std::streamsize size = fileSize / sizeof(Person);
 
     stream.seekg(0, std::ios::beg);
 
     std::cout << "The persons are: " << std::endl;
 
-    for (unsigned int i = 0; i < size; ++i) {
+    for (std::streamsize i = 0; i < size; ++i) {
         Person temporary = { "", "", 0, };
 
         stream.read(reinterpret_cast<char*>(&temporary), sizeof(Person));
@@ -332,7 +390,7 @@ void printPersons(const char* filePath) {
 bool findPersonSmallestAge(const char* filePath, Person& person) {
     assert(filePath !=    nullptr );
 
-    std::ifstream stream(filePath);
+    std::ifstream stream(filePath, std::ios::in | std::ios::binary);
 
     if (stream.is_open() == false) {
         std::cerr << ERROR_FILE_O << std::endl;
@@ -342,21 +400,21 @@ bool findPersonSmallestAge(const char* filePath, Person& person) {
 
     stream.seekg(0, std::ios::end);
 
-    unsigned int fileSize = stream.tellg();
+    std::streamsize fileSize = stream.tellg();
 
     if (fileSize == 0) {
-        std::cerr << "Empty File!" << std::endl;
+        std::cerr << ERROR_FILE_D << ' ' << ERROR_STATUS_E << std::endl;
 
         return false;
     }
 
     if (fileSize % sizeof(Person) != 0) {
-        std::cerr << "Corrupted File!" << std::endl;
+        std::cerr << ERROR_FILE_D << ' ' << ERROR_STATUS_E << std::endl;
 
         return false;
     }
 
-    unsigned int size = fileSize / sizeof(Person);
+    std::streamsize size = fileSize / sizeof(Person);
 
     stream.seekg(0, std::ios::beg);
 
@@ -364,7 +422,7 @@ bool findPersonSmallestAge(const char* filePath, Person& person) {
 
     bool status = false;
 
-    for (unsigned int i = 0; i < size; ++i) {
+    for (std::streamsize i = 0; i < size; ++i) {
         stream.read(reinterpret_cast<char*>(&temp), sizeof(Person));
 
         if (stream.fail() || stream.gcount() != sizeof(Person)) {
@@ -395,7 +453,7 @@ bool findPersonSmallestAge(const char* filePath, Person& person) {
 bool findPersonBiggestAge(const char* filePath, Person& person) {
     assert(filePath !=    nullptr );
 
-    std::ifstream stream(filePath);
+    std::ifstream stream(filePath, std::ios::in | std::ios::binary);
 
     if (stream.is_open() == false) {
         std::cerr << ERROR_FILE_O << std::endl;
@@ -405,21 +463,21 @@ bool findPersonBiggestAge(const char* filePath, Person& person) {
 
     stream.seekg(0, std::ios::end);
 
-    unsigned int fileSize = stream.tellg();
+    std::streamsize fileSize = stream.tellg();
 
     if (fileSize == 0) {
-        std::cerr << "Empty File!" << std::endl;
+        std::cerr << ERROR_FILE_D << ' ' << ERROR_STATUS_E << std::endl;
 
         return false;
     }
 
     if (fileSize % sizeof(Person) != 0) {
-        std::cerr << "Corrupted File!" << std::endl;
+        std::cerr << ERROR_FILE_D << ' ' << ERROR_STATUS_C << std::endl;
 
         return false;
     }
 
-    unsigned int size = fileSize / sizeof(Person);
+    std::streamsize size = fileSize / sizeof(Person);
 
     stream.seekg(0, std::ios::beg);
 
@@ -427,7 +485,7 @@ bool findPersonBiggestAge(const char* filePath, Person& person) {
 
     bool status = false;
 
-    for (unsigned int i = 0; i < size; ++i) {
+    for (std::streamsize i = 0; i < size; ++i) {
         stream.read(reinterpret_cast<char*>(&temp), sizeof(Person));
 
         if (stream.fail() || stream.gcount() != sizeof(Person)) {
@@ -453,54 +511,4 @@ bool findPersonBiggestAge(const char* filePath, Person& person) {
     stream.close();
 
     return status;
-}
-
-
-
-char* getFileName() {
-    char* buffer = new (std::nothrow) char[MAXF];
-
-    std::cout << "Enter the file path: ";
-
-    std::cin.getline(buffer, MAXF, '\n');
-
-    std::cout << std::endl;
-
-    return buffer;
-}
-
-
-
-void generator() {
-    Person persons1[3] = {
-        { "John"    , "Wick"    , 52, },
-        { "Eve"     , "Macarro" , 20, },
-        { "Winston" , "Scott"   , 71, },
-    };
-
-    Person persons2[7] = {
-        { "Rick"    , "Grimes"  , 50,   },
-        { "Daryl"   , "Dyxon"   , 45,   },
-        { "Morgan"  , "Jones"   , 41,   },
-        { "Negan"   , "Smith"   , 52,   },
-        { "Carol"   , "Peletier", 49,   },
-        { "Maggie"  , "Green"   , 47,   },
-        { "Glenn"   , "Rhee"    , 35,   },
-    };
-
-    Person persons3[9] = {
-        { "Leon"    , "Kennedy"     , 21, },
-        { "Ada"     , "Wong"        , 24, },
-        { "Chris"   , "Redfield"    , 25, },
-        { "Claire"  , "Redfield"    , 19, },
-        { "Jill"    , "Valentine"   , 23, },
-        { "Albert"  , "Wesker"      , 38, },
-        { "Carlos"  , "Oliveira"    , 21, },
-        { "Josh"    , "Stone"       , 28, },
-        { "Alice"   , "Abernathy"   , 25, },
-    };
-
-    writePersons(persons1, 3, "Persons1.bin");
-    writePersons(persons2, 7, "Persons2.bin");
-    writePersons(persons3, 9, "Persons3.bin");
 }
