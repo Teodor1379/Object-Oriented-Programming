@@ -1,6 +1,6 @@
-#include <limits>
-
 #include <cassert>
+
+#include <limits>
 
 #include <iostream>
 
@@ -30,7 +30,6 @@ int main() {
     scenarioDynamicMemory2();
 
 
-
     std::size_t size = readSize();
 
 
@@ -48,7 +47,6 @@ int main() {
 
 
     clearArray(array);
-
 
 
     return 0;
