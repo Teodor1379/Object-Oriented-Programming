@@ -9,6 +9,9 @@ int main() {
     std::cout << "Condition 1: " << condition1 << std::endl;
     std::cout << "Condition 2: " << condition2 << std::endl;
 
+    // BoolAlpha    Modifier    ->  true    OR  false
+    // NoBoolAlpha  Modifier    ->  1       OR  0
+
     std::cout << std::boolalpha << "Condition 1: " << condition1 << std::endl;
     std::cout << std::boolalpha << "Condition 2: " << condition2 << std::endl;
 
