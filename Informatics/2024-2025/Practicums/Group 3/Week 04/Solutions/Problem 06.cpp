@@ -56,7 +56,7 @@ bool findNonBuyers(unsigned int&);
 
 
 int main() {
-    generator();
+    // generator();
 
 
     if (validateFiles() == false) {
