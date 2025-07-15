@@ -156,7 +156,7 @@ int main() {
 
                 clearString(belt);
 
-                clearArray(filteredNinjas);
+                clearArray(ninjas);
 
                 return 2;
             }
@@ -188,7 +188,7 @@ int main() {
 
                 clearString(weapon);
 
-                clearArray(filteredNinjas);
+                clearArray(ninjas);
 
                 return 2;
             }
@@ -216,7 +216,7 @@ int main() {
             if (filteredNinjas == nullptr) {
                 std::cout << "Applying Filter... ERROR!" << std::endl;
 
-                clearArray(filteredNinjas);
+                clearArray(ninjas);
 
                 return 2;
             }
