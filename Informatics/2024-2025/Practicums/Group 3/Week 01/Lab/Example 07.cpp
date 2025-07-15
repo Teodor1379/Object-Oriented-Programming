@@ -17,17 +17,17 @@ enum class Color : char {
 
 /*
 
-enum SimpleColor {
-    RED     ,
-    GREEN   ,
-    BLUE    ,
-};
+    enum SimpleColor {
+        RED     ,
+        GREEN   ,
+        BLUE    ,
+    };
 
-enum SpecialColor {
-    RED     ,
-    BLACK   ,
-    WHITE   ,
-};
+    enum SpecialColor {
+        RED     ,
+        BLACK   ,
+        WHITE   ,
+    };
 
 */
 
