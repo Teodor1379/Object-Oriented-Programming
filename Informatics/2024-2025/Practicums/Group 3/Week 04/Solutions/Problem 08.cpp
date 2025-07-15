@@ -1,5 +1,4 @@
 #include <cassert>
-
 #include <cstdint>
 
 #include <iomanip>
@@ -32,27 +31,15 @@ const char* ERROR_STATUS_C = "CORRUPTED";
 
 
 
+void generator();
+
+
 char* getFileName();
 
 
 
-void generator();
-
-
-
-Person* buildPersons(                   unsigned int&,  const char* );
-void    clearPersons(       Person*                                 );
-void    writePersons(const  Person*,    unsigned int,   const char* );
-void    printPersons(const  Person*,    unsigned int                );
-
-
-
-const Person*   findPersonSmallestAge   (const Person*, unsigned int);
-const Person*   findPersonBiggestAge    (const Person*, unsigned int);
-
-
-
-void printPersons(const char*);
+void writePersons(const  Person*,    unsigned int,  const char* );
+void printPersons(                                  const char* );
 
 
 
@@ -62,7 +49,7 @@ bool    findPersonBiggestAge   (const char*, Person&);
 
 
 int main() {
-    generator();
+    // generator();
 
 
     char* filePath = getFileName();
@@ -90,36 +77,6 @@ int main() {
             std::setw(12)   <<  maxPerson.name2 << ' ' <<
                                 maxPerson.age   << ' ' << std::endl;
     }
-
-
-    /*
-        unsigned int size = 0;
-        
-        Person* persons = buildPersons(size, filePath);
-
-        if (persons == nullptr) {
-            return 1;
-        }
-
-        printPersons(persons, size);
-
-
-        const Person* minAgePerson = findPersonSmallestAge  (persons, size);
-        const Person* maxAgePerson = findPersonBiggestAge   (persons, size);
-
-        std::cout << "The person with Min Age is: " << std::left <<
-            std::setw(12)   <<  minAgePerson->name1 << ' '  <<
-            std::setw(12)   <<  minAgePerson->name2 << ' '  <<
-                                minAgePerson->age   << ' '  << std::endl;
-
-        std::cout << "The person with Max Age is: " << std::left <<
-            std::setw(12)   <<  maxAgePerson->name1 << ' '  <<
-            std::setw(12)   <<  maxAgePerson->name2 << ' '  <<
-                                maxAgePerson->age   << ' '  << std::endl;
-
-
-        clearPersons(persons);
-    */
 
 
     delete[] filePath;
@@ -182,72 +139,6 @@ char* getFileName() {
 
 
 
-Person* buildPersons(unsigned int& size, const char* file) {
-    std::ifstream stream(file, std::ios::in | std::ios::binary);
-
-    if (stream.is_open() == false) {
-        std::cerr << ERROR_FILE_O << std::endl;
-
-        size = 0; return nullptr;
-    }
-
-    stream.seekg(0, std::ios_base::end);
-
-    std::streamsize fileSize = stream.tellg();
-
-    if (fileSize == 0) {
-        std::cerr << ERROR_FILE_D << ' ' << ERROR_STATUS_E << std::endl;
-
-        size = 0; return nullptr;
-    }
-
-    if (fileSize % sizeof(Person) != 0) {
-        std::cerr << ERROR_FILE_D << ' ' << ERROR_STATUS_E << std::endl;
-
-        size = 0; return nullptr;
-    }
-
-    size = fileSize / sizeof(Person);
-
-    Person* persons = new (std::nothrow) Person[size];
-
-    if (persons == nullptr) {
-        size = 0; return nullptr;
-    }
-
-    stream.seekg(0, std::ios_base::beg);
-
-    stream.read(reinterpret_cast<char*>(persons), size * sizeof(Person));
-
-    if (stream.fail() || stream.gcount() != static_cast<std::streamsize>(size * sizeof(Person))) {
-        std::cerr << ERROR_FILE_R << std::endl;
-
-        stream.close();
-
-        size = 0; return nullptr;
-    }
-
-    stream.close();
-
-    for (unsigned int i = 0; i < size; ++i) {
-        if (persons[i].age == 0) {
-            delete[] persons;
-
-            return nullptr;
-        }
-    }
-
-    return persons;
-}
-
-void clearPersons(Person* persons) {
-    assert(persons  !=  nullptr );
-
-    delete[] persons;
-
-    persons = nullptr;
-}
-
 void writePersons(const Person* persons, unsigned int size, const char* file) {
     assert(persons  !=  nullptr );
     assert(size     !=  0       );
@@ -276,52 +167,6 @@ void writePersons(const Person* persons, unsigned int size, const char* file) {
 
         return;
     }
-}
-
-void printPersons(const Person* persons, unsigned int size) {
-    assert(persons  !=  nullptr );
-    assert(size     !=  0       );
-
-    std::cout << "The persons are: " << std::endl;
-
-    for (unsigned int i = 0; i < size; ++i) {
-        std::cout << "Person:" << std::left
-            << std::setw(12) << persons[i].name1    << ' '
-            << std::setw(12) << persons[i].name2    << ' '
-                             << persons[i].age      << std::endl;
-    }
-}
-
-
-
-const Person* findPersonSmallestAge(const Person* persons, unsigned int size) {
-    assert(persons  !=  nullptr );
-    assert(size     !=  0       );
-
-    const Person* result = &(persons[0]);
-
-    for (unsigned int i = 1; i < size; ++i) {
-        if (result->age > persons[i].age) {
-            result = &(persons[i]);
-        }
-    }
-
-    return result;
-}
-
-const Person* findPersonBiggestAge(const Person* persons, unsigned int size) {
-    assert(persons  !=  nullptr );
-    assert(size     !=  0       );
-
-    const Person* result = &(persons[0]);
-
-    for (unsigned int i = 1; i < size; ++i) {
-        if (result->age < persons[i].age) {
-            result = &(persons[i]);
-        }
-    }
-
-    return result;
 }
 
 
