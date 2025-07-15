@@ -6,6 +6,10 @@
 
 #define PERMISSIONS 7
 
+#define PERM_R 4
+#define PERM_W 2
+#define PERM_X 1
+
 
 
 enum class ReadPermissions {
@@ -31,13 +35,13 @@ unsigned int    readNumber();
 
 ReadPermissions     getR(unsigned int number);
 WritePermissions    getW(unsigned int number);
-ExecutePermissions  getE(unsigned int number);
+ExecutePermissions  getX(unsigned int number);
 
 
 
 void printR(ReadPermissions     permissions);
 void printW(WritePermissions    permissions);
-void printE(ExecutePermissions  permissions);
+void printX(ExecutePermissions  permissions);
 
 void printPermissions(unsigned int permissions);
 
@@ -80,7 +84,7 @@ unsigned int readNumber() {
 
 
 ReadPermissions getR(unsigned int number) {
-    unsigned int bit = number & 1;
+    unsigned int bit = number & PERM_R;
 
     return bit == 0 ? 
         ReadPermissions::EMPTY      :
@@ -88,15 +92,15 @@ ReadPermissions getR(unsigned int number) {
 }
 
 WritePermissions getW(unsigned int number) {
-    unsigned int bit = number & 2;
+    unsigned int bit = number & PERM_W;
 
     return bit == 0 ?
         WritePermissions::EMPTY     :
         WritePermissions::WRITE     ;
 }
 
-ExecutePermissions getE(unsigned int number) {
-    unsigned int bit = number & 4;
+ExecutePermissions getX(unsigned int number) {
+    unsigned int bit = number & PERM_X;
 
     return bit == 0 ?
         ExecutePermissions::EMPTY   :
@@ -121,7 +125,7 @@ void printW(WritePermissions permissions) {
     }
 }
 
-void printE(ExecutePermissions permissions) {
+void printX(ExecutePermissions permissions) {
     if (permissions == ExecutePermissions::EXECUTE) {
         std::cout << 'e';
     } else {
@@ -136,7 +140,7 @@ void printPermissions(unsigned int permissions) {
 
     printR(getR(permissions));
     printW(getW(permissions));
-    printE(getE(permissions));
+    printX(getX(permissions));
 
     std::cout << std::endl;
 }
