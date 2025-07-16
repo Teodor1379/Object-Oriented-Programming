@@ -354,19 +354,19 @@ Enter the size: 7
 Hello World!
 I Love Her!
 I Hate Her!
-Obichay me, na inat me obichay.
-Obichay me, kato lud me obichay.
-Obichay me, bez da si zasluzhava.
-Obichay me, samo tova me spasqva.
+Light curse you!
+For the Silver Hand!
+The Light is with us!
+Enemies of the Light, beware!
 
 The strings are:
 !dlroW olleH
 !erH evoL I
 !erH etaH I
-.yahcibo em tani an ,em yahcibO
-.yahcibo em dul otak ,em yahcibO
-.avahzulsaz is ad zeb ,em yahcibO
-.avqsaps em avot omas ,em yahcibO
+!uoy esruc thgiL
+!dnaH revliS eht roF
+!su htiw si thgiL ehT
+!eraweb ,thgiL eht fo seimenE
 ```
 
 
