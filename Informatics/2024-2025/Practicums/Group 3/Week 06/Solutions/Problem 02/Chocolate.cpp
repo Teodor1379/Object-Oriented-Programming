@@ -3,9 +3,9 @@
 
 
 Chocolate::Chocolate() {
-    this->brand     =   new char[1]()   ;
-    this->price     =   0.0             ;
-    this->weight    =   0.0             ;
+    this->brand     =   this->buildString("Unknown")    ;
+    this->price     =   EPSILON                         ;
+    this->weight    =   EPSILON                         ;
 }
 
 Chocolate::Chocolate(const char* brand, double price, double weight) {
@@ -29,9 +29,7 @@ Chocolate::Chocolate(const Chocolate& instance) {
 }
 
 Chocolate::~Chocolate() {
-    delete[] this->brand;
-
-    this->brand = nullptr;
+    this->destroyString(this->brand);
 }
 
 
@@ -40,7 +38,7 @@ Chocolate& Chocolate::operator=(const Chocolate& instance) {
     if (this != &instance) {
         char* temporary = buildString(instance.brand);
 
-        delete[] this->brand;
+        this->destroyString(this->brand);
 
         this->brand     =   temporary       ;
         this->price     =   instance.price  ;
@@ -59,7 +57,7 @@ void Chocolate::setBrand(const char* brand) {
 
     char* temporary = buildString(brand);
 
-    delete[] this->brand;
+    this->destroyString(this->brand);
 
     this->brand = temporary;
 }
@@ -87,8 +85,8 @@ void Chocolate::print() const {
 
     std::cout << "[ ";
 
-    std::cout << "Brand: "  << this->brand  << ", " ;
-    std::cout << "Price: "  << this->price  << ", " ;
+    std::cout << "Brand : " << this->brand  << ", " ;
+    std::cout << "Price : " << this->price  << ", " ;
     std::cout << "Weight: " << this->weight         ;
 
     std::cout << " ]";
@@ -98,10 +96,16 @@ void Chocolate::print() const {
 
 
 
-char* Chocolate::buildString(const char* string) {
+char* Chocolate::buildString(const char* string) const {
     char* temporary = new char[strlen(string) + 1]();
 
     strcpy(temporary, string);
 
     return temporary;
+}
+
+void Chocolate::destroyString(char*& string) {
+    delete[] string;
+
+    string = nullptr;
 }

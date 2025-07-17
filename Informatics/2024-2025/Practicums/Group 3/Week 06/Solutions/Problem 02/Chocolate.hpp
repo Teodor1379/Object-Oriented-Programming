@@ -20,9 +20,9 @@
 
 class Chocolate {
 public:
-    Chocolate();
-    Chocolate(const char*, double, double);
-    Chocolate(const Chocolate&);
+    Chocolate(                              );
+    Chocolate(const char*, double, double   );
+    Chocolate(const Chocolate&              );
 
     ~Chocolate();
 
@@ -53,15 +53,16 @@ public:
 
 
 private:
-    inline  bool    validateBrand   (const char*    brand   )   const   { return brand != nullptr           && brand[0] != '\0'             ;   }
+    inline  bool    validateBrand   (const char*    brand   )   const   { return brand != nullptr           && brand[0] != '\0'         ;   }
 
-    inline  bool    validatePrice   (double         price   )   const   { return std::isfinite(price    )   && std::fabs(price  ) >= EPSILON;   }
-    inline  bool    validateWeight  (double         weight  )   const   { return std::isfinite(weight   )   && std::fabs(weight ) >= EPSILON;   }
+    inline  bool    validatePrice   (double         price   )   const   { return std::isfinite(price    )   && std::fabs(price  ) >= 0.0;   }
+    inline  bool    validateWeight  (double         weight  )   const   { return std::isfinite(weight   )   && std::fabs(weight ) >= 0.0;   }
 
 
 
 private:
-    char* buildString(const char*);
+    char*     buildString(const char*   )   const   ;
+    void    destroyString(      char*&  )           ;
 
 
 
