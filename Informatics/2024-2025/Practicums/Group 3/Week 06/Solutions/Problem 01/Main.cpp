@@ -1,3 +1,6 @@
+#include <iostream>
+
+
 #include "Spider.hpp"
 
 
@@ -8,7 +11,7 @@ int main() {
 
         spider.print();
     } catch (std::exception& exception) {
-        std::cout << exception.what() << std::endl;
+        std::cerr << exception.what() << std::endl;
 
         return 1;
     }
