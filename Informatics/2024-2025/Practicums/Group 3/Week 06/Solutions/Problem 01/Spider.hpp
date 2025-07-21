@@ -21,6 +21,7 @@ public:
     ~Spider();
 
 
+
 public:
     Spider& operator=(const Spider&);
 
