@@ -15,8 +15,8 @@ inline int operation4(const int& number)    { return number + 9;    }
 
 
 
-inline void showLove()  { std::cout << "Teo  LOVES Her" << std::endl;   }   // Inline Without Effect!
-inline void showHate()  { std::cout << "John HATES Teo" << std::endl;   }   // Inline Without Effect!
+inline void showLove()  { std::cout << "Teo     LOVES   Jess"   << std::endl;   }   // Inline Without Effect!
+inline void showHate()  { std::cout << "Jess    HATES   Teo "   << std::endl;   }   // Inline Without Effect!
 
 
 
