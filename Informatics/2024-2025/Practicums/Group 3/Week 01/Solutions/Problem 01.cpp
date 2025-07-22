@@ -35,12 +35,12 @@ int main() {
 unsigned long long int readLimit() {
     unsigned long long int limit = 0;
 
-    while (limit < 2) {
+    while (true) {
         std::cout << "Enter the limit: ";
 
         std::cin >> limit;
 
-        if (std::cin.fail()) {
+        if (std::cin.fail() || limit < 2) {
             std::cin.clear  ()                                                  ;
             std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
         } else {
@@ -50,8 +50,6 @@ unsigned long long int readLimit() {
             return limit;
         }
     }
-
-    return limit;
 }
 
 
