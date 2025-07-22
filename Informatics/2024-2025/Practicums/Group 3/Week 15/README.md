@@ -5,7 +5,7 @@
 
 ## Задача 1
 
-### 🧠 Сложност: ![Static Badge](https://img.shields.io/badge/easy-green)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/easy-green)
 
 ### 📖 Описание:
 
@@ -14,7 +14,7 @@
 
 ## Задача 2
 
-### 🧠 Сложност: ![Static Badge](https://img.shields.io/badge/easy-green)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/easy-green)
 
 ### 📖 Описание:
 
@@ -23,7 +23,7 @@
 
 ## Задача 3
 
-### 🧠 Сложност: ![Static Badge](https://img.shields.io/badge/easy-green)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/easy-green)
 
 ### 📖 Описание:
 
@@ -32,7 +32,7 @@
 
 ## Задача 4
 
-### 🧠 Сложност: ![Static Badge](https://img.shields.io/badge/easy-green)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/easy-green)
 
 ### 📖 Описание:
 
@@ -41,7 +41,7 @@
 
 ## Задача 5
 
-### 🧠 Сложност: ![Static Badge](https://img.shields.io/badge/medium-yellow)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/medium-yellow)
 
 ### 📖 Описание:
 
@@ -50,7 +50,7 @@
 
 ## Задача 6
 
-### 🧠 Сложност: ![Static Badge](https://img.shields.io/badge/medium-yellow)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/medium-yellow)
 
 ### 📖 Описание:
 
@@ -59,7 +59,7 @@
 
 ## Задача 7
 
-### 🧠 Сложност: ![Static Badge](https://img.shields.io/badge/medium-yellow)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/medium-yellow)
 
 ### 📖 Описание:
 
@@ -68,7 +68,7 @@
 
 ## Задача 8
 
-### 🧠 Сложност: ![Static Badge](https://img.shields.io/badge/medium-yellow)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/medium-yellow)
 
 ### 📖 Описание:
 
@@ -77,7 +77,7 @@
 
 ## Задача 9
 
-### 🧠 Сложност: ![Static Badge](https://img.shields.io/badge/hard-red)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/hard-red)
 
 ### 📖 Описание:
 
@@ -86,7 +86,7 @@
 
 ## Задача 10
 
-### 🧠 Сложност: ![Static Badge](https://img.shields.io/badge/hard-red)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/hard-red)
 
 ### 📖 Описание:
 
@@ -95,7 +95,7 @@
 
 ## Задача 11
 
-### 🧠 Сложност: ![Static Badge](https://img.shields.io/badge/hard-red)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/hard-red)
 
 ### 📖 Описание:
 
@@ -104,7 +104,7 @@
 
 ## Задача 12
 
-### 🧠 Сложност: ![Static Badge](https://img.shields.io/badge/hard-red)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/hard-red)
 
 ### 📖 Описание:
 
@@ -113,7 +113,7 @@
 
 ## Задача 13
 
-### 🧠 Сложност: ![Static Badge](https://img.shields.io/badge/impossible-black)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/impossible-black)
 
 ### 📖 Описание:
 
