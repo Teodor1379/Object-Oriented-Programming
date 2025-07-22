@@ -34,6 +34,7 @@ namespace NamespaceB {
 }
 
 
+
 using namespace NamespaceA;
 using namespace NamespaceB;
 
