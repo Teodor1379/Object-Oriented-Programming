@@ -30,13 +30,13 @@ enum class Genre {
     POP     =    0,
     TECHNO  =    1,
     HOUSE   =    2,
-    DUPSTEP =    3,
+    DUBSTEP =    3,
     COUNTER =    4,
 };
 
 
 
-const char* genres[4] = { "Pop", "Techno", "House", "Dupstep" };
+const char* genres[4] = { "Pop", "Techno", "House", "Dubstep" };
 
 
 
