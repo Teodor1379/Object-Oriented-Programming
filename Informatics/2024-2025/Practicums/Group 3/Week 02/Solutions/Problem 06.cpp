@@ -6,6 +6,9 @@
 
 
 
+unsigned int calledStats = 0;
+
+
 struct Matrix {
     unsigned int rows;
     unsigned int cols;
@@ -20,7 +23,8 @@ unsigned int readIndx(unsigned int, unsigned int);
 
 
 
-int* buildContainer(unsigned int);
+int* buildContainer(        unsigned int);
+void clearContainer(int*&               );
 
 
 
@@ -34,13 +38,13 @@ void    printMatrix(const   Matrix&);
 
 
 
-void    addRow(Matrix&, int* row, unsigned int size);
-void    addCol(Matrix&, int* col, unsigned int size);
+void    addRow(Matrix&, const int*, unsigned int);
+void    addCol(Matrix&, const int*, unsigned int);
 
 
 
-void    removeRow(Matrix&,  unsigned int index);
-void    removeCol(Matrix&,  unsigned int index);
+void    remRow(Matrix&,  unsigned int);
+void    remCol(Matrix&,  unsigned int);
 
 
 
@@ -64,15 +68,27 @@ int main() {
     Matrix matrix = initializeMatrix(rows, cols);
 
     buildMatrix(matrix);
-    printMatrix(matrix);
+    
+    printStats(matrix);
+
 
     int* row = buildContainer(matrix.cols); if (row == nullptr) { std::cout << "Allocating Container... ERROR!";    }
     int* col = buildContainer(matrix.rows); if (col == nullptr) { std::cout << "Allocating Container... ERROR!";    }
 
-    addRow(matrix, row, matrix.cols);
-    addCol(matrix, col, matrix.rows);
+    std::cout << std::endl;
+
+    addRow(matrix, row, matrix.cols );  std::cout << "Building Row... SUCCESS!" << std::endl;   printStats(matrix);
+    remRow(matrix, 0                );  std::cout << "Removing Row... SUCCESS!" << std::endl;   printStats(matrix);
+
+    addCol(matrix, col, matrix.rows );  std::cout << "Building Col... SUCCESS!" << std::endl;   printStats(matrix);
+    remCol(matrix, 0                );  std::cout << "Removing Col... SUCCESS!" << std::endl;   printStats(matrix);
+
 
     deinitializeMatrix(matrix);
+
+    clearContainer(row);
+    clearContainer(col);
+
 
     return 0;
 }
@@ -124,7 +140,9 @@ unsigned int readIndx(unsigned int minNumber, unsigned int maxNumber) {
 
 
 int* buildContainer(unsigned int size) {
-    int* container = new int[size];
+    assert(size !=  0   );
+
+    int* container = new (std::nothrow) int[size];
 
     if (container == nullptr) {
         return nullptr;
@@ -137,6 +155,14 @@ int* buildContainer(unsigned int size) {
     }
 
     return container;
+}
+
+void clearContainer(int*& container) {
+    assert(container    !=  nullptr );
+
+    delete[] container;
+
+    container = nullptr;
 }
 
 
@@ -153,7 +179,7 @@ Matrix initializeMatrix(unsigned int rows, unsigned int cols) {
         return matrix;
     }
 
-    for (unsigned int i = 0; i < cols; ++i) {
+    for (unsigned int i = 0; i < rows; ++i) {
         matrix.data[i] = new (std::nothrow) int[cols]();
 
         if (matrix.data[i] == nullptr) {
@@ -202,7 +228,7 @@ void printMatrix(const Matrix& matrix) {
 
     for (unsigned int i = 0; i < matrix.rows; ++i) {
         for (unsigned int j = 0; j < matrix.cols; ++j) {
-            std::cout << matrix.data[i][j];
+            std::cout << matrix.data[i][j] << ' ';
         }
 
         std::cout << std::endl;
@@ -257,7 +283,15 @@ void addCol(Matrix& matrix, const int* col, unsigned int size) {
 
 
 
-void removeRow(Matrix& matrix, unsigned int index) {
+void remRow(Matrix& matrix, unsigned int index) {
+    assert(index <  matrix.rows);
+
+    if (matrix.rows == 1) {
+        deinitializeMatrix(matrix);
+
+        return;
+    }
+
     for (unsigned int i = index; i < matrix.rows - 1; ++i) {
         for (unsigned int j = 0; j < matrix.cols; ++j) {
             matrix.data[i][j] = matrix.data[i + 1][j];
@@ -266,10 +300,14 @@ void removeRow(Matrix& matrix, unsigned int index) {
 
     delete[] matrix.data[matrix.rows - 1];
 
+    matrix.data[matrix.rows - 1] = nullptr;
+
     matrix.rows = matrix.rows - 1;
 }
 
-void removeCol(Matrix& matrix, unsigned int index) {
+void remCol(Matrix& matrix, unsigned int index) {
+    assert(index < matrix.cols);
+    
     for (unsigned int i = 0; i < matrix.rows; ++i) {
         int* temporary = new (std::nothrow) int[matrix.cols - 1];
 
@@ -277,10 +315,10 @@ void removeCol(Matrix& matrix, unsigned int index) {
 
         for (unsigned int j = 0; j < matrix.cols; ++j) {
             if (j != index) {
-                temporary[counter] = matrix.data[i][j]; 
-            }
+                temporary[counter] = matrix.data[i][j];
 
-            counter = counter + 1;
+                counter = counter + 1;
+            }
         }
 
         delete[] matrix.data[i];
@@ -301,3 +339,22 @@ bool isEmpty(const Matrix& matrix) {
 
 unsigned int    getRows(const Matrix& matrix)   { return matrix.rows;   }
 unsigned int    getCols(const Matrix& matrix)   { return matrix.cols;   }
+
+
+
+void printStats(const Matrix& matrix) {
+    std::cout << std::endl;
+
+    printMatrix(matrix);
+
+    std::cout << "The rows in the matrix are: " << getRows(matrix) << std::endl;
+    std::cout << "The cols in the matrix are: " << getCols(matrix) << std::endl;
+
+    std::cout << "Is the matrix empty: " << std::boolalpha << isEmpty(matrix) << std::endl;
+
+    calledStats = calledStats + 1;
+
+    if (calledStats < 5) {
+        std::cout << std::endl;
+    }
+}
