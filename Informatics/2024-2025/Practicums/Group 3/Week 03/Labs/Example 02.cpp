@@ -3,6 +3,7 @@
 
 
 
+
 const char* ERROR_FILE_O = "Error while opening the file!";
 const char* ERROR_FILE_C = "Error while closing the file!";
 const char* ERROR_FILE_R = "Error while reading the file!";
@@ -10,7 +11,9 @@ const char* ERROR_FILE_R = "Error while reading the file!";
 
 
 int main() {
-    std::ifstream stream("Files/Alphabet.txt");
+    std::ifstream stream;
+
+    stream.open("Files/Digits.txt");
 
     if (stream.is_open() == false) {
         std::cerr << ERROR_FILE_O << std::endl;
@@ -20,7 +23,7 @@ int main() {
 
 
     while (stream.good()) {
-        char c = stream.get();
+        int d = stream.get();
 
         if (stream.eof()) {
             break;
@@ -32,8 +35,9 @@ int main() {
             return 2;
         }
 
-        std::cout.put(c);
+        std::cout.put(d);
     }
+
 
     stream.clear();
     stream.close();
@@ -41,7 +45,7 @@ int main() {
     if (stream.fail()) {
         std::cerr << ERROR_FILE_C << std::endl;
 
-        return 3;
+        return 1;
     }
 
 
