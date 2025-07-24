@@ -9,6 +9,12 @@
 
 
 
+const char* ERROR_FILE_O = "Error while opening the file!";
+const char* ERROR_FILE_C = "Error while closing the file!";
+const char* ERROR_FILE_W = "Error while writing the file!";
+
+
+
 char*   buildString(        );
 void    clearString(char*&  );
 
@@ -31,7 +37,7 @@ int main() {
     std::ofstream stream(filePath, std::ios::out | std::ios::app);
 
     if (stream.is_open() == false) {
-        std::cerr << "Error while opening the file!" << std::endl;
+        std::cerr << ERROR_FILE_O << std::endl;
 
         clearString(filePath);
         clearString(fileStrn);
@@ -42,7 +48,7 @@ int main() {
     stream << fileStrn << '\n';
 
     if (stream.fail()) {
-        std::cerr << "Error while writing to the file!" << std::endl;
+        std::cerr << ERROR_FILE_W << std::endl;
 
         clearString(filePath);
         clearString(fileStrn);
@@ -50,10 +56,17 @@ int main() {
         return 3;
     }
 
+    stream.clear();
     stream.close();
 
     clearString(filePath);
     clearString(fileStrn);
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_W << std::endl;
+
+        return 4;
+    }
 
     return 0;
 }
