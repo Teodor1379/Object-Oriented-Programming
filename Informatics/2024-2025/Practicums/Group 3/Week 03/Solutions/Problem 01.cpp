@@ -37,7 +37,7 @@ int main() {
 
 
 void printContentFile() {
-    std::ifstream stream(__FILE__);
+    std::ifstream stream(__FILE__, std::ios::in);
 
     if (stream.is_open() == false) {
         std::cout << "Opening File... ERROR!" << std::endl;
@@ -61,7 +61,7 @@ void printContentFile() {
 unsigned int calculateEveryLines() {
     unsigned int counter = 0;
 
-    std::ifstream stream(__FILE__);
+    std::ifstream stream(__FILE__, std::ios::in);
 
     if (stream.is_open() == false) {
         std::cout << "Opening File... ERROR!" << std::endl;
@@ -87,7 +87,7 @@ unsigned int calculateEveryLines() {
 unsigned int calculateEmptyLines() {
     unsigned int counter = 0;
 
-    std::ifstream stream(__FILE__);
+    std::ifstream stream(__FILE__, std::ios::in);
 
     if (stream.is_open() == false) {
         std::cout << "Opening File... ERROR!" << std::endl;
@@ -118,7 +118,7 @@ unsigned int calculateEmptyLines() {
 unsigned int getFileSize() {
     unsigned int size = 0;
 
-    std::ifstream stream(__FILE__);
+    std::ifstream stream(__FILE__, std::ios::in);
 
     if (stream.is_open() == false) {
         std::cout << "Opening File... ERROR!" << std::endl;
