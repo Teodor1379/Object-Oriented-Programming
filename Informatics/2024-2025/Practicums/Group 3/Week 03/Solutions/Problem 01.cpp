@@ -3,6 +3,12 @@
 
 
 
+const char* ERROR_FILE_O = "Error while opening the file!";
+const char* ERROR_FILE_C = "Error while closing the file!";
+const char* ERROR_FILE_R = "Error while reading the file!";
+
+
+
 void printContentFile();
 
 
@@ -40,7 +46,7 @@ void printContentFile() {
     std::ifstream stream(__FILE__, std::ios::in);
 
     if (stream.is_open() == false) {
-        std::cout << "Opening File... ERROR!" << std::endl;
+        std::cout << ERROR_FILE_O << std::endl;
 
         std::exit(EXIT_FAILURE);
     }
@@ -50,10 +56,27 @@ void printContentFile() {
     while (stream.good()) {
         stream.get(c);
 
+        if (stream.eof()) {
+            break;
+        }
+
+        if (stream.fail()) {
+            std::cerr << ERROR_FILE_R << std::endl;
+
+            std::exit(EXIT_FAILURE);
+        }
+
         std::cout.put(c);
     }
 
+    stream.clear();
     stream.close();
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_C << std::endl;
+
+        std::exit(EXIT_FAILURE);
+    }
 }
 
 
@@ -64,7 +87,7 @@ unsigned int calculateEveryLines() {
     std::ifstream stream(__FILE__, std::ios::in);
 
     if (stream.is_open() == false) {
-        std::cout << "Opening File... ERROR!" << std::endl;
+        std::cout << ERROR_FILE_O << std::endl;
 
         std::exit(EXIT_FAILURE);
     }
@@ -74,12 +97,29 @@ unsigned int calculateEveryLines() {
     while (stream.good()) {
         stream.get(c);
 
+        if (stream.eof()) {
+            break;
+        }
+
+        if (stream.fail()) {
+            std::cerr << ERROR_FILE_R << std::endl;
+
+            std::exit(EXIT_FAILURE);
+        }
+
         if (c == '\n') {
             counter = counter + 1;
         }
     }
 
+    stream.clear();
     stream.close();
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_C << std::endl;
+
+        std::exit(EXIT_FAILURE);
+    }
 
     return counter;
 }
@@ -90,7 +130,7 @@ unsigned int calculateEmptyLines() {
     std::ifstream stream(__FILE__, std::ios::in);
 
     if (stream.is_open() == false) {
-        std::cout << "Opening File... ERROR!" << std::endl;
+        std::cout << ERROR_FILE_O << std::endl;
 
         std::exit(EXIT_FAILURE);
     }
@@ -103,12 +143,29 @@ unsigned int calculateEmptyLines() {
 
         stream.get(c2);
 
+        if (stream.eof()) {
+            break;
+        }
+
+        if (stream.fail()) {
+            std::cerr << ERROR_FILE_R << std::endl;
+
+            std::exit(EXIT_FAILURE);
+        }
+
         if (c1 == '\n' && c1 == c2) {
             counter = counter + 1;
         }
     }
 
+    stream.clear();
     stream.close();
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_C << std::endl;
+
+        std::exit(EXIT_FAILURE);
+    }
 
     return counter;
 }
@@ -121,7 +178,7 @@ unsigned int getFileSize() {
     std::ifstream stream(__FILE__, std::ios::in);
 
     if (stream.is_open() == false) {
-        std::cout << "Opening File... ERROR!" << std::endl;
+        std::cout << ERROR_FILE_O << std::endl;
 
         std::exit(EXIT_FAILURE);
     }
@@ -131,10 +188,27 @@ unsigned int getFileSize() {
     while (stream.good()) {
         stream.get(c);
 
+        if (stream.eof()) {
+            break;
+        }
+
+        if (stream.fail()) {
+            std::cerr << ERROR_FILE_R << std::endl;
+
+            std::exit(EXIT_FAILURE);
+        }
+
         size = size + 1;
     }
 
+    stream.clear();
     stream.close();
 
-    return size - 1;
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_C << std::endl;
+
+        std::exit(EXIT_FAILURE);
+    }
+
+    return size;
 }
