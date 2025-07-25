@@ -44,7 +44,7 @@ void    printStudents(std::ifstream&, const std::streampos*, unsigned int);
 int main() {
     char* filePath = buildString();
 
-    std::ifstream stream(filePath);
+    std::ifstream stream(filePath, std::ios::in);
 
     if (stream.is_open() == false) {
         std::cerr << ERROR_FILE_O << std::endl;

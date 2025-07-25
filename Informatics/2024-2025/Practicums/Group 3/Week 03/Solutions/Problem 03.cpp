@@ -142,7 +142,7 @@ int main() {
 
 
 char* buildString() {
-    char* string = new (std::nothrow) char[50];
+    char* string = new (std::nothrow) char[50]();
 
     if (string != nullptr) {
         std::cin.getline(string, '\n');
