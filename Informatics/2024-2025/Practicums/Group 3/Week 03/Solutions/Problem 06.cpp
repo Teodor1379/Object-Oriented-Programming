@@ -120,6 +120,15 @@ char* buildString() {
         std::cout << "Enter the file path: ";
 
         std::cin.getline(string, MAX, '\n');
+
+        if (std::cin.fail() || string[0] == '\0') {
+            std::cin.clear  ()                                                  ;
+            std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
+
+            clearString(string);
+
+            return nullptr;
+        }
     }
 
     return string;
