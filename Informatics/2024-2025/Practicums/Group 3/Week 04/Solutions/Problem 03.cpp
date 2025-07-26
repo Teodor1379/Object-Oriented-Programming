@@ -2,6 +2,8 @@
 
 #include <cmath>
 
+#include <limits>
+
 #include <iomanip>
 
 #include <fstream>
@@ -21,12 +23,14 @@ struct Item {
 
 
 
-const char* ERROR_FILE_R = "Error while reading from    the file!";
-const char* ERROR_FILE_W = "Error while writing to      the file!";
-const char* ERROR_FILE_O = "Error while opening         the file!";
-const char* ERROR_FILE_D = "Error while operating with  the file!";
+const char* ERROR_FILE_O = "Error while opening the file!";
+const char* ERROR_FILE_C = "Error while closing the file!";
+const char* ERROR_FILE_R = "Error while reading the file!";
+const char* ERROR_FILE_W = "Error while writing the file!";
+const char* ERROR_FILE_S = "Error while seeking the file!";
+const char* ERROR_FILE_D = "Error while working the file!";
 
-const char* ERROR_STATUS_E = "EMPTY"    ;
+const char* ERROR_STATUS_E = "EMPTYFILE";
 const char* ERROR_STATUS_C = "CORRUPTED";
 
 
@@ -149,6 +153,17 @@ char* getFileName() {
 
     std::cin.getline(buffer, MAX, '\n');
 
+    if (std::cin.fail() || buffer[0] == '\0') {
+        std::cin.clear  ()                                                  ;
+        std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
+
+        delete[] buffer;
+
+        buffer = nullptr;
+
+        std::exit(EXIT_FAILURE);
+    }
+
     std::cout << std::endl;
 
     return buffer;
@@ -168,6 +183,12 @@ Item* buildItems(unsigned int& size, const char* filePath) {
     }
 
     stream.seekg(0, std::ios_base::end);
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_S << std::endl;
+
+        size = 0; return nullptr;
+    }
 
     std::streamsize fileSize = stream.tellg();
 
@@ -193,6 +214,14 @@ Item* buildItems(unsigned int& size, const char* filePath) {
 
     stream.seekg(0, std::ios_base::beg);
 
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_S << std::endl;
+
+        delete[] items; size = 0;
+
+        return nullptr;
+    }
+
     stream.read(reinterpret_cast<char*>(items), size * sizeof(Item));
 
     if (stream.fail() || stream.gcount() != static_cast<std::streamsize>(size * sizeof(Item))) {
@@ -204,6 +233,14 @@ Item* buildItems(unsigned int& size, const char* filePath) {
     }
 
     stream.close();
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_C << std::endl;
+
+        delete[] items; size = 0;
+
+        return nullptr;
+    }
 
     if (validateItems(items, size) == false) {
         delete[] items; size = 0;
@@ -239,6 +276,7 @@ void writeItems(const Item* items, unsigned int size, const char* filePath) {
 
     if (stream.fail()) {
         std::cerr << ERROR_FILE_W << std::endl;
+        std::cerr << ERROR_FILE_C << std::endl;
 
         return;
     }

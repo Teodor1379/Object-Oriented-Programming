@@ -1,6 +1,8 @@
 #include <cassert>
 #include <cstring>
 
+#include <limits>
+
 #include <fstream>
 #include <iostream>
 
@@ -18,12 +20,14 @@ struct Person {
 
 
 
-const char* ERROR_FILE_R = "Error while reading from    the file!";
-const char* ERROR_FILE_W = "Error while writing to      the file!";
-const char* ERROR_FILE_O = "Error while opening         the file!";
-const char* ERROR_FILE_D = "Error whole operating with  the file!";
+const char* ERROR_FILE_O = "Error while opening the file!";
+const char* ERROR_FILE_C = "Error while closing the file!";
+const char* ERROR_FILE_R = "Error while reading the file!";
+const char* ERROR_FILE_W = "Error while writing the file!";
+const char* ERROR_FILE_S = "Error while seeking the file!";
+const char* ERROR_FILE_D = "Error whole working the file!";
 
-const char* ERROR_STATUS_E = "EMPTY"    ;
+const char* ERROR_STATUS_E = "EMPTYFILE";
 const char* ERROR_STATUS_C = "CORRUPTED";
 
 
@@ -132,6 +136,15 @@ char* getFileName() {
 
     std::cin.getline(buffer, MAX, '\n');
 
+    if (std::cin.fail() || buffer[0] == '\0') {
+        std::cin.clear  ()                                                  ;
+        std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
+
+        delete[] buffer; buffer = nullptr;
+
+        std::exit(EXIT_FAILURE);
+    }
+
     return buffer;
 }
 
@@ -147,6 +160,12 @@ Person* buildPersons(unsigned int& size, const char* filePath) {
     }
 
     stream.seekg(0, std::ios_base::end);
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_S << std::endl;
+
+        size = 0; return nullptr;
+    }
 
     std::streamsize fileSize = stream.tellg();
 
@@ -172,15 +191,33 @@ Person* buildPersons(unsigned int& size, const char* filePath) {
 
     stream.seekg(0, std::ios_base::beg);
 
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_S << std::endl;
+
+        delete[] persons; size = 0;
+
+        return nullptr;
+    }
+
     stream.read(reinterpret_cast<char*>(persons), size * sizeof(Person));
 
     if (stream.fail() || stream.gcount() != static_cast<std::streamsize>(size * sizeof(Person))) {
         std::cerr << ERROR_FILE_W << std::endl;
 
-        size = 0; return nullptr;
+        delete[] persons; size = 0;
+        
+        return nullptr;
     }
 
     stream.close();
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_C << std::endl;
+
+        delete[] persons; size = 0;
+
+        return nullptr;
+    }
 
     return persons;
 }
@@ -210,6 +247,7 @@ void writePersons(const Person* persons, unsigned int size, const char* filePath
 
     if (stream.fail()) {
         std::cerr << ERROR_FILE_W << std::endl;
+        std::cerr << ERROR_FILE_C << std::endl;
 
         return;
     }
