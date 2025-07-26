@@ -10,7 +10,7 @@ const char* ERROR_FILE_R = "Error while reading the file!";
 
 
 int main() {
-    std::ifstream stream("Files/Alphabet.txt");
+    std::ifstream stream("Files/Alphabet.txt", std::ios::in);
 
     if (stream.is_open() == false) {
         std::cerr << ERROR_FILE_O << std::endl;

@@ -25,7 +25,7 @@ void scenarioEBit(std::ifstream&);
 int main() {
     // State of Stream
 
-    std::ifstream stream("../Files/Message.txt");
+    std::ifstream stream("Files/Message.txt", std::ios::in);
 
     printStateBits(stream);
     printStateFncs(stream);
