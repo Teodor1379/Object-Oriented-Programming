@@ -7,9 +7,11 @@ const char* FILE_PATH = "Numbers.dat";
 
 
 
-const char* ERROR_FILE_R = "Error while reading from    the file!";
-const char* ERROR_FILE_W = "Error while writing to      the file!";
-const char* ERROR_FILE_O = "Error while opening         the file!";
+const char* ERROR_FILE_R = "Error while reading the file!";
+const char* ERROR_FILE_C = "Error while closing the file!";
+const char* ERROR_FILE_W = "Error while writing the file!";
+const char* ERROR_FILE_O = "Error while opening the file!";
+const char* ERROR_FILE_S = "Error while seeking the file!";
 
 
 
@@ -52,6 +54,12 @@ int main() {
 
     stream.close();
 
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_C << std::endl;
+
+        return 2;
+    }
+
 
     return 0;
 }
@@ -91,6 +99,7 @@ void writeNumbers() {
 
     if (stream.fail()) {
         std::cerr << ERROR_FILE_W << std::endl;
+        std::cerr << ERROR_FILE_C << std::endl;
 
         return;
     }
@@ -102,6 +111,12 @@ void printNumbers(std::ifstream& stream) {
     stream.clear();
 
     stream.seekg(0, std::ios_base::beg);
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_S << std::endl;
+
+        return;
+    }
 
     std::cout << "The numbers are: ";
 
@@ -129,6 +144,12 @@ bool findMinNumber(std::ifstream& stream, int& minNumber) {
 
     stream.seekg(0, std::ios_base::beg);
 
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_S << std::endl;
+
+        return false;
+    }
+
     int32_t result = 0; bool success = false;
 
     while (stream.read(reinterpret_cast<char*>(&result), sizeof(int))) {
@@ -147,6 +168,8 @@ bool findMinNumber(std::ifstream& stream, int& minNumber) {
         return false;
     }
 
+    stream.clear();
+
     return success;
 }
 
@@ -154,6 +177,12 @@ bool findMaxNumber(std::ifstream& stream, int& maxNumber) {
     stream.clear();
 
     stream.seekg(0, std::ios_base::beg);
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_S << std::endl;
+
+        return false;
+    }
 
     int32_t result = 0; bool success = false;
 
@@ -172,6 +201,8 @@ bool findMaxNumber(std::ifstream& stream, int& maxNumber) {
 
         return false;
     }
+
+    stream.clear();
 
     return success;
 }
