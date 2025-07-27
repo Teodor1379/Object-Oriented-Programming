@@ -3,9 +3,13 @@
 
 
 
+<div align="justify">
+
+
+
 ## Задача 1 🔎 (Минимално Число, Максимално Число) 🔎
 
-![Static Badge](https://img.shields.io/badge/easy-green)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/easy-green)
 
 ### 📖 Описание:
 
@@ -13,21 +17,21 @@
 
 ### 💡 Примери:
 
-```
+```txt
 The numbers are: 1 2 3
 
 Min Number is: 1
 Max Number is: 3
 ```
 
-```
+```txt
 The numbers are: 7 6 5 4 3 2 1
 
 Min Number is: 1
 Max Number is: 7
 ```
 
-```
+```txt
 The numbers are: 9 1 8 2 7 3 6 4 5
 
 Min Number is: 1
@@ -37,7 +41,7 @@ Max Number is: 9
 
 ## Задача 2 📄 (Размер на Файл) 📄
 
-![Static Badge](https://img.shields.io/badge/easy-green)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/easy-green)
 
 ### 📖 Описание:
 
@@ -45,19 +49,19 @@ Max Number is: 9
 
 ### 💡 Примери:
 
-```
+```txt
 Enter the file path: Numbers.dat
 
 File Size is: 12
 ```
 
-```
+```txt
 Enter the file path: Numbers.dat
 
 File Size is: 28
 ```
 
-```
+```txt
 Enter the file path: Numbers.dat
 
 File Size is: 36
@@ -66,7 +70,7 @@ File Size is: 36
 
 ## Задача 3 📦 (Предмети) 📦
 
-![Static Badge](https://img.shields.io/badge/easy-green)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/easy-green)
 
 ### 📖 Описание:
 
@@ -74,7 +78,7 @@ File Size is: 36
 
 ### 💡 Примери:
 
-```
+```txt
 Enter the file path: Items1.dat
 
 The items content is:
@@ -88,7 +92,7 @@ The Min Price Item Quality is: 3.00
 The Max Price Item Quality is: 9.00
 ```
 
-```
+```txt
 Enter the file path: Items2.dat
 
 The items content is:
@@ -106,7 +110,7 @@ The Min Price Item Quantity is: 1.00
 The Max Price Item Quantity is: 9.00
 ```
 
-```
+```txt
 Enter the file path: Items3.dat
 
 The items content is:
@@ -129,7 +133,7 @@ The Max Price Item Quantity is: 3.0
 
 ## Задача 4 👨 (Сортиране на Хора) 👩
 
-![Static Badge](https://img.shields.io/badge/easy-green)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/easy-green)
 
 ### 📖 Описание:
 
@@ -137,7 +141,7 @@ The Max Price Item Quantity is: 3.0
 
 ### 💡 Примери:
 
-```
+```txt
 Enter the file path: People1.bin
 
 The people are:
@@ -151,7 +155,7 @@ Person: Teo2        20
 Person: Teo3        21
 ```
 
-```
+```txt
 Enter the file path: People2.bin
 
 The people are:
@@ -173,7 +177,7 @@ Person: Carol       49
 Person: Maggie      47
 ```
 
-```
+```txt
 Enter the file path: People3.bin
 
 The people are:
@@ -202,7 +206,7 @@ Person: Jill        23
 
 ## Задача 5 🗂️ (Файлови Числа) 🗂️
 
-![Static Badge](https://img.shields.io/badge/medium-yellow)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/medium-yellow)
 
 ### 📖 Описание:
 
@@ -210,17 +214,17 @@ Person: Jill        23
 
 ### 💡 Примери:
 
-```
+```txt
 Before  Sorting: 1 2 3
 After   Sorting: 1 2 3
 ```
 
-```
+```txt
 Before  Sorting: 3 4 5 6 2 1
 After   Sorting: 1 2 3 4 5 6
 ```
 
-```
+```txt
 Before  Sorting: 9 8 7 6 5 4 3 2 1
 After   Sorting: 1 2 3 4 5 6 7 8 9
 ```
@@ -228,7 +232,7 @@ After   Sorting: 1 2 3 4 5 6 7 8 9
 
 ## Задача 6 🍔 (Поръчки) 🍔
 
-![Static Badge](https://img.shields.io/badge/medium-yellow)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/medium-yellow)
 
 ### 📖 Описание:
 
@@ -236,7 +240,7 @@ After   Sorting: 1 2 3 4 5 6 7 8 9
 
 ### 💡 Примери:
 
-```
+```txt
 The orders are:
 Order is: 1 1
 Order is: 2 2
@@ -253,7 +257,7 @@ Max Prices Customer is: 3
 Not real Customers are: 0
 ```
 
-```
+```txt
 The orders are:
 Order is: 1 1
 Order is: 2 2
@@ -274,7 +278,7 @@ Max Prices Customer is: 3
 Not real Customers are: 3
 ```
 
-```
+```txt
 The orders are:
 Order is: 1 1
 Order is: 2 2
@@ -300,7 +304,7 @@ Not real Customers are: 5
 
 ## Задача 7 👤 (Имена) 👤
 
-![Static Badge](https://img.shields.io/badge/medium-yellow)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/medium-yellow)
 
 ### 📖 Описание:
 
@@ -308,7 +312,7 @@ Not real Customers are: 5
 
 ### 💡 Примери:
 
-```
+```txt
 Enter the size: 1
 
 Enter the file path: Humans.bin
@@ -321,7 +325,7 @@ Min Name Human is: Emil         Kamenov     24
 Max Name Human is: Emil         Kamenov     24
 ```
 
-```
+```txt
 Enter the size: 3
 
 Enter the file path: Humans.bin
@@ -342,7 +346,7 @@ Min Name Human is: Asen     Bozhilov    24
 Max Name Human is: Evgeniq  Velikova    18
 ```
 
-```
+```txt
 Enter the size: 7
 
 Enter the file path: Humans.bin
@@ -382,7 +386,7 @@ Max Name Human is: Radoslava    Hristova    22
 
 ## Задача 8 📆 (Възрасти) 📆
 
-![Static Badge](https://img.shields.io/badge/medium-yellow)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/medium-yellow)
 
 ### 📖 Описание:
 
@@ -392,7 +396,7 @@ Max Name Human is: Radoslava    Hristova    22
 
 ### 💡 Примери:
 
-```
+```txt
 Enter the file path: Persons1.bin
 
 The persons are:
@@ -404,7 +408,7 @@ The person with Min Age is: Eve         Macarro     20
 The person with Max Age is: Winston     Scott       71
 ```
 
-```
+```txt
 Enter the file path: Persons2.bin
 
 The persons are:
@@ -420,7 +424,7 @@ The person with Min Age is: Glenn       Rhee        35
 The person with Max Age is: Negan       Smith       52
 ```
 
-```
+```txt
 Enter the file path: Persons3.bin
 
 The persons are:
@@ -441,18 +445,27 @@ The person with Max Age is: Albert      Wesker      38
 
 ## Задача 9 ⭐ (Странни Имена) ⭐
 
-![Static Badge](https://img.shields.io/badge/hard-red)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/hard-red)
 
 ### 📖 Описание:
 
-Създайте програма, която има структура за потребител, който има следните характеристики: име, заделено с точна големина, цяло число за идентификатор, цяло число за възраст. Да се запишат в двоичен файл `Data.bin` данните за поредица от хора, без да се валидират, а след това в рамките на същия файл да се премахнат неалидните данни за потребители. Помислете дали трябва да съхранявате и още някакви данни за потребителите, за да работите със символни низове, заделени с точна големина.
+Създайте програма, която има структура за потребител, който има следните характеристики: име, заделено с точна големина, цяло число за идентификатор, цяло число за възраст. Да се запишат в двоичен файл `Data.bin` данните за поредица от хора, без да се валидират, а след това в рамките на същия файл да се премахнат невалидните данни за потребители. Помислете дали трябва да съхранявате и още някакви данни за потребителите, за да работите със символни низове, заделени с точна големина.
 
 ### 💡 Примери:
+
+```txt
+```
+
+```txt
+```
+
+```txt
+```
 
 
 ## Задача 10 👨‍🏫 (Релация) 👨‍🏫
 
-![Static Badge](https://img.shields.io/badge/hard-red)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/hard-red)
 
 ### 📖 Описание:
 
@@ -474,46 +487,19 @@ The person with Max Age is: Albert      Wesker      38
 
 ### 💡 Примери:
 
-```
-The pairs from the file are:
-
-Pair: 0     1
-Pair: 1     0
-Pair: 0     0
-Pair: 1     1
+```txt
 ```
 
-```
-The pairs from the file are:
-
-Pair: 0     1
-Pair: 1     2
-Pair: 2     3
-Pair: 3     4
-Pair: 4     5
-Pair: 5     6
-Pair: 6     7
+```txt
 ```
 
-```
-The pairs from the file are:
-
-Pair: 0     0
-Pair: 0     1
-Pair: 0     2
-Pair: 0     3
-Pair: 0     4
-Pair: 0     5
-Pair: 0     6
-Pair: 0     7
-Pair: 0     8
-Pair: 0     9
+```txt
 ```
 
 
 ## Задача 11 🏙️ (Градове) 🏙️
 
-![Static Badge](https://img.shields.io/badge/hard-red)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/hard-red)
 
 ### 📖 Описание:
 
@@ -526,10 +512,19 @@ Pair: 0     9
 
 ### 💡 Примери:
 
+```txt
+```
+
+```txt
+```
+
+```txt
+```
+
 
 ## Задача 12 🧮 (Система Точки) 🧮
 
-![Static Badge](https://img.shields.io/badge/hard-red)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/hard-red)
 
 ### 📖 Описание:
 
@@ -537,7 +532,7 @@ Pair: 0     9
 
 ### 💡 Примери:
 
-```
+```txt
 Enter the file path: Points1.bin
 
 The points are:
@@ -552,7 +547,7 @@ Closest Point 2 Coordinates are: 1.000 1.000
 Closest Point 3 Coordinates are: 3.000 3.000
 ```
 
-```
+```txt
 Enter the file path: Points2.bin
 
 The points are:
@@ -571,7 +566,7 @@ Closest Point 2 Coordinates are: 1.000 2.000
 Closest Point 3 Coordinates are: 2.000 1.000
 ```
 
-```
+```txt
 Enter the file path: Points3.bin
 
 The points are:
@@ -595,7 +590,7 @@ Closest Point 3 Coordinates are: 2.000 2.000
 
 ## Задача 13 🕵️ (Криптиране) 🕵️
 
-![Static Badge](https://img.shields.io/badge/impossible-black)
+### 🧠 Сложност: &nbsp; ![Static Badge](https://img.shields.io/badge/impossible-black)
 
 ### 📖 Описание:
 
@@ -604,3 +599,16 @@ Closest Point 3 Coordinates are: 2.000 2.000
 Съобщението представлява двоичен файл с неизвестна дължина. Това, което съхранява, е поредица от цели неотрицателни числа, кодиращи латинската азбука. "Ключът" за съобщението се съхранява в друг двоичен файл и представлява цяло число в интервала `[ 0 ; 255 ]`. Преценете как е най-подходящо да прочетете и съхраните ключа. Шифърът за получаване на правилното съобщение е към всяко число от прочетения файл, съдържащ съобщението, да се добави стойността на прочетения ключ. Изведете разшифрованото съобщение на стандартния изход.
 
 ### 💡 Примери:
+
+```
+```
+
+```
+```
+
+```
+```
+
+
+
+</div>
