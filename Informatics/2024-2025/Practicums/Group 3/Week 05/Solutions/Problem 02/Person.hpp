@@ -20,6 +20,7 @@ public:
     Person(const char*, const char*, unsigned int, bool);
 
 
+
 public:
     inline const char*  getFirstName()  const   { return firstName; }
     inline const char*  getThirdName()  const   { return thirdName; }
@@ -27,20 +28,25 @@ public:
     inline bool         getSex      ()  const   { return sex;       }
 
 
+
 public:
     inline bool isMature()  const { return this->age > 17;  }
+
 
 
 public:
     void printInformation() const;
 
 
+
 public:
     bool equals(const Person&)  const;
 
 
+
 private:
     bool validateName(const char*)  const;
+
 
 
 private:

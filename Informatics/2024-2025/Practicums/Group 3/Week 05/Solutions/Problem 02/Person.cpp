@@ -56,7 +56,7 @@ bool Person::validateName(const char* name) const {
         return false;
     }
 
-    if (name == "") {
+    if (name[0] == '\0') {
         return false;
     }
 
