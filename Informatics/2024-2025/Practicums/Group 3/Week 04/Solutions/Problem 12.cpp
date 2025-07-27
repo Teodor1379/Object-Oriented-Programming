@@ -21,9 +21,15 @@ struct Point {
 
 
 
-const char* ERROR_FILE_R = "Error while reading from    the file!";
-const char* ERROR_FILE_W = "Error while writing to      the file!";
-const char* ERROR_FILE_O = "Error while opening         the file!";
+const char* ERROR_FILE_O = "Error while opening the file!";
+const char* ERROR_FILE_C = "Error while closing the file!";
+const char* ERROR_FILE_R = "Error while reading the file!";
+const char* ERROR_FILE_W = "Error while writing the file!";
+const char* ERROR_FILE_S = "Error while seeking the file!";
+const char* ERROR_FILE_D = "Error while working the file!";
+
+const char* ERROR_STATUS_E = "EMPTYFILE";
+const char* ERROR_STATUS_C = "CORRUPTED";
 
 
 
@@ -163,6 +169,15 @@ char* getFileName() {
 
     std::cin.getline(buffer, MAX, '\n');
 
+    if (std::cin.fail() || buffer[0] == '\0') {
+        std::cin.clear  ()                                                  ;
+        std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
+
+        delete[] buffer; buffer = nullptr;
+
+        return nullptr;
+    }
+
     std::cout << std::endl;
 
     return buffer;
@@ -173,7 +188,7 @@ char* getFileName() {
 Point* buildPoints(unsigned int& size, const char* string) {
     assert(string   !=  nullptr );
 
-    std::ifstream stream(string);
+    std::ifstream stream(string, std::ios::in | std::ios::binary);
 
     if (stream.is_open() == false) {
         std::cerr << ERROR_FILE_O << std::endl;
@@ -183,23 +198,35 @@ Point* buildPoints(unsigned int& size, const char* string) {
 
     stream.seekg(0, std::ios_base::end);
 
-    unsigned int fileSize = stream.tellg();
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_S << std::endl;
 
-    size = fileSize / sizeof(Point);
+        size = 0; return nullptr;
+    }
 
-    if (size == 0) {
-        std::cerr << "Empty File!" << std::endl;
+    std::streamsize fileSize = stream.tellg();
+
+    if (fileSize == 0) {
+        std::cerr << ERROR_FILE_O << ' ' << ERROR_STATUS_E << std::endl;
 
         size = 0; return nullptr;
     }
 
     if (fileSize % sizeof(Point) != 0) {
-        std::cerr << "Corrupted File!" << std::endl;
+        std::cerr << ERROR_FILE_D << ' ' << ERROR_STATUS_C << std::endl;
 
         size = 0; return nullptr;
     }
 
+    size = fileSize / sizeof(Point);
+
     stream.seekg(0, std::ios_base::beg);
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_S << std::endl;
+
+        size = 0; return nullptr;
+    }
 
     Point* points = new (std::nothrow) Point[size];
 
@@ -209,13 +236,23 @@ Point* buildPoints(unsigned int& size, const char* string) {
 
     stream.read(reinterpret_cast<char*>(points), size * sizeof(Point));
 
-    if (stream.good() == false) {
+    if (stream.fail()) {
         std::cerr << ERROR_FILE_R << std::endl;
 
-        size = 0; return nullptr;
+        delete[] points; size = 0;
+        
+        return nullptr;
     }
     
     stream.close();
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_C << std::endl;
+
+        delete[] points; size = 0;
+
+        return nullptr;
+    }
 
     return points;
 }
@@ -233,7 +270,7 @@ void writePoints(const Point* points, unsigned int size, const char* string) {
     assert(size     !=  0       );
     assert(string   !=  nullptr );
 
-    std::ofstream stream(string);
+    std::ofstream stream(string, std::ios::out | std::ios::binary);
 
     if (stream.is_open() == false) {
         std::cerr << ERROR_FILE_O << std::endl;
@@ -243,13 +280,19 @@ void writePoints(const Point* points, unsigned int size, const char* string) {
 
     stream.write(reinterpret_cast<const char*>(points), size * sizeof(Point));
 
-    if (stream.good() == false) {
+    if (stream.fail()) {
         std::cerr << ERROR_FILE_W << std::endl;
 
         return;
     }
 
     stream.close();
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_C << std::endl;
+
+        return;
+    }
 }
 
 void printPoints(const Point* points, unsigned int size) {
