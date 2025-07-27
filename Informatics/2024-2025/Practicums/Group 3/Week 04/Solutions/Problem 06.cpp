@@ -17,13 +17,14 @@ struct Order {
 };
 
 
+const char* ERROR_FILE_O = "Error while opening the file!";
+const char* ERROR_FILE_C = "Error while closing the file!";
+const char* ERROR_FILE_R = "Error while reading the file!";
+const char* ERROR_FILE_W = "Error while writing the file!";
+const char* ERROR_FILE_S = "Error while seeking the file!";
+const char* ERROR_FILE_D = "Error while working the file!";
 
-const char* ERROR_FILE_R = "Error while reading from    the file!";
-const char* ERROR_FILE_W = "Error while writing to      the file!";
-const char* ERROR_FILE_O = "Error while opening         the file!";
-const char* ERROR_FILE_D = "Error while operating with  the file!";
-
-const char* ERROR_STATUS_E = "EMPTY"    ;
+const char* ERROR_STATUS_E = "EMPTYFILE";
 const char* ERROR_STATUS_C = "CORRUPTED";
 
 
@@ -118,7 +119,7 @@ int main() {
     }
 
 
-    std::ofstream resultStream(FILE_PATH_RESULT);
+    std::ofstream resultStream(FILE_PATH_RESULT, std::ios::out | std::ios::binary);
 
     if (resultStream.is_open() == false) {
         std::cerr << ERROR_FILE_O << std::endl;
@@ -140,6 +141,7 @@ int main() {
 
     if (resultStream.fail()) {
         std::cerr << ERROR_FILE_W << std::endl;
+        std::cerr << ERROR_FILE_C << std::endl;
 
         return 5;
     }
@@ -210,7 +212,14 @@ void printOrders() {
 
     std::cout << std::endl;
 
+    stream.clear();
     stream.close();
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_C << std::endl;
+
+        return;
+    }
 }
 
 void printCstmrs() {
@@ -234,7 +243,14 @@ void printCstmrs() {
 
     std::cout << std::endl;
 
+    stream.clear();
     stream.close();
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_C << std::endl;
+
+        return;
+    }
 }
 
 
@@ -263,6 +279,7 @@ void writeOrders(const Order* orders, unsigned int size) {
 
     if (stream.fail()) {
         std::cerr << ERROR_FILE_W << std::endl;
+        std::cerr << ERROR_FILE_C << std::endl;
 
         return;
     }
@@ -292,6 +309,7 @@ void writeCstmrs(const int32_t* cstmrs, unsigned int size) {
 
     if (stream.fail()) {
         std::cerr << ERROR_FILE_W << std::endl;
+        std::cerr << ERROR_FILE_C << std::endl;
 
         return;
     }
@@ -316,8 +334,8 @@ bool validateFiles() {
         return false;
     }
 
-    streamOrders.seekg(0, std::ios::end);
-    streamCstmrs.seekg(0, std::ios::end);
+    streamOrders.seekg(0, std::ios::end);   if (streamOrders.fail())    { std::cerr << ERROR_FILE_S << std::endl; return false; }
+    streamCstmrs.seekg(0, std::ios::end);   if (streamCstmrs.fail())    { std::cerr << ERROR_FILE_S << std::endl; return false; }
 
     std::streamsize fileSizeOrders = streamOrders.tellg();
     std::streamsize fileSizeCstmrs = streamCstmrs.tellg();
@@ -345,6 +363,12 @@ bool validateFiles() {
     for (std::streamsize i = 0; i < sizeOrders; ++i) {
         streamOrders.seekg(i * sizeof(Order), std::ios::beg);
 
+        if (streamOrders.fail()) {
+            std::cerr << ERROR_FILE_S << std::endl;
+
+            return false;
+        }
+
         streamOrders.read(reinterpret_cast<char*>(&currentOrder), sizeof(Order));
 
         if (streamOrders.fail() || streamOrders.gcount() != sizeof(Order)) {
@@ -357,6 +381,12 @@ bool validateFiles() {
         
         for (std::streamsize j = 0; j < sizeCstmrs; ++j) {
             streamCstmrs.seekg(j * sizeof(int32_t), std::ios::beg);
+
+            if (streamCstmrs.fail()) {
+                std::cerr << ERROR_FILE_S << std::endl;
+
+                return false;
+            }
 
             streamCstmrs.read(reinterpret_cast<char*>(&currentIdentifier), sizeof(int32_t));
 
@@ -381,6 +411,12 @@ bool validateFiles() {
     streamOrders.close();
     streamCstmrs.close();
 
+    if (streamOrders.fail() || streamCstmrs.fail()) {
+        std::cerr << ERROR_FILE_C << std::endl;
+
+        return false;
+    }
+
     return true;
 }
 
@@ -403,8 +439,8 @@ bool findUserOrders(int32_t& identifier1, int32_t& identifier2) {
         return false;
     }
 
-    streamOrders.seekg(0, std::ios::end);
-    streamCstmrs.seekg(0, std::ios::end);
+    streamOrders.seekg(0, std::ios::end);   if (streamOrders.fail())    { std::cerr << ERROR_FILE_C << std::endl; return false; }
+    streamCstmrs.seekg(0, std::ios::end);   if (streamCstmrs.fail())    { std::cerr << ERROR_FILE_C << std::endl; return false; }
 
     std::streamsize fileSizeOrders  =   streamOrders.tellg();
     std::streamsize fileSizeCstmrs  =   streamCstmrs.tellg();
@@ -427,8 +463,8 @@ bool findUserOrders(int32_t& identifier1, int32_t& identifier2) {
     std::streamsize sizeOrders = fileSizeOrders / sizeof(Order  )   ;
     std::streamsize sizeCstmrs = fileSizeCstmrs / sizeof(int32_t)   ;
 
-    streamOrders.seekg(0, std::ios::beg);
-    streamCstmrs.seekg(0, std::ios::beg);
+    streamOrders.seekg(0, std::ios::beg);   if (streamOrders.fail())    { std::cerr << ERROR_FILE_S << std::endl; return false; }
+    streamCstmrs.seekg(0, std::ios::beg);   if (streamCstmrs.fail())    { std::cerr << ERROR_FILE_S << std::endl; return false; }
 
     bool status = false;
 
@@ -437,6 +473,12 @@ bool findUserOrders(int32_t& identifier1, int32_t& identifier2) {
 
     for (std::streamsize i = 0; i < sizeCstmrs; ++i) {
         streamCstmrs.seekg(i * sizeof(int32_t), std::ios::beg);
+
+        if (streamCstmrs.fail()) {
+            std::cerr << ERROR_FILE_S << std::endl;
+
+            return false;
+        }
 
         int32_t currentIdentifier = 0;
 
@@ -452,6 +494,12 @@ bool findUserOrders(int32_t& identifier1, int32_t& identifier2) {
 
         for (std::streamsize j = 0; j < sizeOrders; ++j) {
             streamOrders.seekg(j * sizeof(Order), std::ios::beg);
+
+            if (streamOrders.fail()) {
+                std::cerr << ERROR_FILE_S << std::endl;
+
+                return false;
+            }
 
             Order buffer = { 0, 0.0 };
 
@@ -490,6 +538,12 @@ bool findUserOrders(int32_t& identifier1, int32_t& identifier2) {
     streamOrders.close();
     streamCstmrs.close();
 
+    if (streamOrders.fail() || streamCstmrs.fail()) {
+        std::cerr << ERROR_FILE_C << std::endl;
+
+        return false;
+    }
+
     return true;
 }
 
@@ -511,8 +565,8 @@ bool findUserPrices(int32_t& identifier1, int32_t& identifier2) {
         return false;
     }
 
-    streamOrders.seekg(0, std::ios::end);
-    streamCstmrs.seekg(0, std::ios::end);
+    streamOrders.seekg(0, std::ios::end);   if (streamOrders.fail())    { std::cerr << ERROR_FILE_S << std::endl; return false; }
+    streamCstmrs.seekg(0, std::ios::end);   if (streamCstmrs.fail())    { std::cerr << ERROR_FILE_S << std::endl; return false; }
 
     std::streamsize fileSizeOrders  =   streamOrders.tellg();
     std::streamsize fileSizeCstmrs  =   streamCstmrs.tellg();
@@ -535,8 +589,8 @@ bool findUserPrices(int32_t& identifier1, int32_t& identifier2) {
     std::streamsize sizeOrders = fileSizeOrders / sizeof(Order  );
     std::streamsize sizeCstmrs = fileSizeCstmrs / sizeof(int32_t);
 
-    streamOrders.seekg(0, std::ios::beg);
-    streamCstmrs.seekg(0, std::ios::beg);
+    streamOrders.seekg(0, std::ios::beg);   if (streamOrders.fail())    { std::cerr << ERROR_FILE_S << std::endl; return false; }
+    streamCstmrs.seekg(0, std::ios::beg);   if (streamCstmrs.fail())    { std::cerr << ERROR_FILE_S << std::endl; return false; }
 
     bool status = false;
 
@@ -545,6 +599,12 @@ bool findUserPrices(int32_t& identifier1, int32_t& identifier2) {
 
     for (std::streamsize i = 0; i < sizeCstmrs; ++i) {
         streamCstmrs.seekg(i * sizeof(int32_t), std::ios::beg);
+
+        if (streamCstmrs.fail()) {
+            std::cerr << ERROR_FILE_S << std::endl;
+
+            return false;
+        }
 
         int32_t currentIdentifier = 0;
 
@@ -560,6 +620,12 @@ bool findUserPrices(int32_t& identifier1, int32_t& identifier2) {
 
         for (std::streamsize j = 0; j < sizeOrders; ++j) {
             streamOrders.seekg(j * sizeof(Order), std::ios::beg);
+
+            if (streamOrders.fail()) {
+                std::cerr << ERROR_FILE_S << std::endl;
+
+                return false;
+            }
 
             Order buffer = { 0, 0.0 };
 
@@ -598,6 +664,12 @@ bool findUserPrices(int32_t& identifier1, int32_t& identifier2) {
     streamOrders.close();
     streamCstmrs.close();
 
+    if (streamOrders.fail() || streamCstmrs.fail()) {
+        std::cerr << ERROR_FILE_C << std::endl;
+
+        return false;
+    }
+
     return true;
 }
 
@@ -620,8 +692,8 @@ bool findNonBuyers(unsigned int& result) {
         return false;
     }
 
-    streamOrders.seekg(0, std::ios::end);
-    streamCstmrs.seekg(0, std::ios::end);
+    streamOrders.seekg(0, std::ios::end);   if (streamOrders.fail())    { std::cerr << ERROR_FILE_S << std::endl; return false; }
+    streamCstmrs.seekg(0, std::ios::end);   if (streamCstmrs.fail())    { std::cerr << ERROR_FILE_S << std::endl; return false; }
 
     std::streamsize fileSizeOrders  =   streamOrders.tellg();
     std::streamsize fileSizeCstmrs  =   streamCstmrs.tellg();
@@ -644,11 +716,17 @@ bool findNonBuyers(unsigned int& result) {
     std::streamsize sizeOrders = fileSizeOrders / sizeof(Order  );
     std::streamsize sizeCstmrs = fileSizeCstmrs / sizeof(int32_t);
 
-    streamOrders.seekg(0, std::ios::beg);
-    streamCstmrs.seekg(0, std::ios::beg);
+    streamOrders.seekg(0, std::ios::beg);   if (streamOrders.fail())    { std::cerr << ERROR_FILE_S << std::endl; return false; }
+    streamCstmrs.seekg(0, std::ios::beg);   if (streamCstmrs.fail())    { std::cerr << ERROR_FILE_S << std::endl; return false; }
 
     for (std::streamsize i = 0; i < sizeCstmrs; ++i) {
         streamCstmrs.seekg(i * sizeof(int32_t), std::ios::beg);
+
+        if (streamCstmrs.fail()) {
+            std::cerr << ERROR_FILE_S << std::endl;
+
+            return false;
+        }
 
         int32_t currentIdentifier = 0;
 
@@ -664,6 +742,12 @@ bool findNonBuyers(unsigned int& result) {
 
         for (unsigned int j = 0; j < sizeOrders; ++j) {
             streamOrders.seekg(j * sizeof(Order), std::ios::beg);
+
+            if (streamOrders.fail()) {
+                std::cerr << ERROR_FILE_S << std::endl;
+
+                return false;
+            }
 
             Order buffer = { 0, 0.0 };
 
@@ -685,6 +769,12 @@ bool findNonBuyers(unsigned int& result) {
 
     streamOrders.close();
     streamCstmrs.close();
+
+    if (streamOrders.fail() || streamCstmrs.fail()) {
+        std::cerr << ERROR_FILE_C << std::endl;
+
+        return false;
+    }
 
     return true;
 }

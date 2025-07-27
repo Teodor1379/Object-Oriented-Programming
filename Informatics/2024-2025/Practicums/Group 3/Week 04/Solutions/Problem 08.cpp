@@ -1,6 +1,8 @@
 #include <cassert>
 #include <cstdint>
 
+#include <limits>
+
 #include <iomanip>
 
 #include <fstream>
@@ -21,12 +23,14 @@ struct Person {
 
 
 
-const char* ERROR_FILE_R = "Error while reading from    the file!";
-const char* ERROR_FILE_W = "Error while writing to      the file!";
-const char* ERROR_FILE_O = "Error while opening         the file!";
-const char* ERROR_FILE_D = "Error while operating with  the file!";
+const char* ERROR_FILE_O = "Error while opening the file!";
+const char* ERROR_FILE_C = "Error while closing the file!";
+const char* ERROR_FILE_R = "Error while reading the file!";
+const char* ERROR_FILE_W = "Error while writing the file!";
+const char* ERROR_FILE_S = "Error while seeking the file!";
+const char* ERROR_FILE_D = "Error while working the file!";
 
-const char* ERROR_STATUS_E = "EMPTY"    ;
+const char* ERROR_STATUS_E = "EMPTYFILE";
 const char* ERROR_STATUS_C = "CORRUPTED";
 
 
@@ -132,6 +136,15 @@ char* getFileName() {
 
     std::cin.getline(buffer, MAXF, '\n');
 
+    if (std::cin.fail() || buffer[0] == '\0') {
+        std::cin.clear  ()                                                  ;
+        std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n') ;
+
+        delete[] buffer; buffer = nullptr;
+
+        return nullptr;
+    }
+
     std::cout << std::endl;
 
     return buffer;
@@ -164,6 +177,7 @@ void writePersons(const Person* persons, unsigned int size, const char* file) {
 
     if (stream.fail()) {
         std::cerr << ERROR_FILE_W << std::endl;
+        std::cerr << ERROR_FILE_C << std::endl;
 
         return;
     }
@@ -184,6 +198,12 @@ void printPersons(const char* filePath) {
 
     stream.seekg(0, std::ios::end);
 
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_S << std::endl;
+
+        return;
+    }
+
     std::streamsize fileSize = stream.tellg();
 
     if (fileSize == 0) {
@@ -201,6 +221,12 @@ void printPersons(const char* filePath) {
     std::streamsize size = fileSize / sizeof(Person);
 
     stream.seekg(0, std::ios::beg);
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_S << std::endl;
+
+        return;
+    }
 
     std::cout << "The persons are: " << std::endl;
 
@@ -228,6 +254,12 @@ void printPersons(const char* filePath) {
     }
 
     stream.close();
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_C << std::endl;
+
+        return;
+    }
 }
 
 
@@ -244,6 +276,12 @@ bool findPersonSmallestAge(const char* filePath, Person& person) {
     }
 
     stream.seekg(0, std::ios::end);
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_S << std::endl;
+
+        return false;
+    }
 
     std::streamsize fileSize = stream.tellg();
 
@@ -262,6 +300,12 @@ bool findPersonSmallestAge(const char* filePath, Person& person) {
     std::streamsize size = fileSize / sizeof(Person);
 
     stream.seekg(0, std::ios::beg);
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_S << std::endl;
+
+        return false;
+    }
 
     Person temp = person;
 
@@ -292,6 +336,12 @@ bool findPersonSmallestAge(const char* filePath, Person& person) {
 
     stream.close();
 
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_C << std::endl;
+
+        return false;
+    }
+
     return status;
 }
 
@@ -307,6 +357,12 @@ bool findPersonBiggestAge(const char* filePath, Person& person) {
     }
 
     stream.seekg(0, std::ios::end);
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_S << std::endl;
+
+        return false;
+    }
 
     std::streamsize fileSize = stream.tellg();
 
@@ -325,6 +381,12 @@ bool findPersonBiggestAge(const char* filePath, Person& person) {
     std::streamsize size = fileSize / sizeof(Person);
 
     stream.seekg(0, std::ios::beg);
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_S << std::endl;
+
+        return false;
+    }
 
     Person temp = person;
 
@@ -354,6 +416,12 @@ bool findPersonBiggestAge(const char* filePath, Person& person) {
     }
 
     stream.close();
+
+    if (stream.fail()) {
+        std::cerr << ERROR_FILE_C << std::endl;
+
+        return false;
+    }
 
     return status;
 }
