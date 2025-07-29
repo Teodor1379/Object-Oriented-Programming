@@ -4,8 +4,8 @@
 
 Person::Person() {
     try {
-        this->firstName = buildString("Unknown Name 1");
-        this->thirdName = buildString("Unknown Name 3");
+        this->firstName = this->buildString("Unknown Name 1");
+        this->thirdName = this->buildString("Unknown Name 3");
     } catch (std::bad_alloc& exception) {
         this->destroyString(this->firstName);
 
@@ -26,8 +26,8 @@ Person::Person(const char* firstName, const char* thirdName, unsigned int age, b
     }
 
     try {
-        this->firstName = buildString(firstName);
-        this->thirdName = buildString(thirdName);
+        this->firstName = this->buildString(firstName);
+        this->thirdName = this->buildString(thirdName);
     } catch (std::bad_alloc& exception) {
         this->destroyString(this->firstName);
 
@@ -40,8 +40,8 @@ Person::Person(const char* firstName, const char* thirdName, unsigned int age, b
 
 Person::Person(const Person& instance) {
     try {
-        this->firstName = buildString(instance.firstName);
-        this->thirdName = buildString(instance.thirdName);
+        this->firstName = this->buildString(instance.firstName);
+        this->thirdName = this->buildString(instance.thirdName);
     } catch (std::bad_alloc& exception) {
         this->destroyString(this->firstName);
 
@@ -65,8 +65,8 @@ Person& Person::operator=(const Person& instance) {
         char* thirdNameTemp = nullptr;
 
         try {
-            firstNameTemp = buildString(instance.firstName  );
-            thirdNameTemp = buildString(instance.thirdName  );
+            firstNameTemp = this->buildString(instance.firstName  );
+            thirdNameTemp = this->buildString(instance.thirdName  );
         } catch (std::bad_alloc& exception) {
             this->destroyString(firstNameTemp);
 
@@ -92,7 +92,7 @@ void Person::setFirstName(const char* firstName) {
         throw std::invalid_argument("Invalid FirstName Argument!");
     }
 
-    char* temporary = buildString(firstName);
+    char* temporary = this->buildString(firstName);
 
     this->destroyString(this->firstName);
 
@@ -104,7 +104,7 @@ void Person::setThirdName(const char* thirdName) {
         throw std::invalid_argument("Invalid Third Name Argument!");
     }
 
-    char* temporary = buildString(thirdName);
+    char* temporary = this->buildString(thirdName);
 
     this->destroyString(this->thirdName);
 
