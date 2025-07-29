@@ -145,9 +145,7 @@ void Person::print() const {
 char* Person::buildString(const char* string) const {
     char* result = new char[strlen(string) + 1]();
 
-    strcpy(result, string);
-    
-    return result;
+    strcpy(result, string); return result;
 }
 
 void Person::destroyString(char*& string) {
