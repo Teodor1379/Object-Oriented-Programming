@@ -49,7 +49,7 @@ private:
 private:
     const static std::uint16_t MIN_YEAR = 1970;
 
-    const static std::uint8_t MDAY  =   1   ;
+    const static std::uint8_t MDAY  =    1  ;
     const static std::uint8_t MDA1  =   28  ;
     const static std::uint8_t MDA2  =   30  ;
     const static std::uint8_t MDA3  =   31  ;
