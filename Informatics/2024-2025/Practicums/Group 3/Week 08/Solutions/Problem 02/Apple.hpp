@@ -63,7 +63,6 @@ private:
 
 
 
-
 inline bool operator==(const Apple& apple1, const Apple& apple2)    { return strcmp(apple1.getName(), apple2.getName()) == 0;   }
 inline bool operator!=(const Apple& apple1, const Apple& apple2)    { return strcmp(apple1.getName(), apple2.getName()) != 0;   }
 

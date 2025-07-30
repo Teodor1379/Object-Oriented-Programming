@@ -12,8 +12,8 @@ Apple::Apple(const char* name) {
 }
 
 Apple::Apple(const Apple& instance) {
-    this->name  =   this->buildString(instance.name)    ;
-    this->size  =   instance.size                       ;
+    this->name  =   this->buildString(instance.name);
+    this->size  =   instance.size                   ;
 }
 
 Apple::~Apple() {

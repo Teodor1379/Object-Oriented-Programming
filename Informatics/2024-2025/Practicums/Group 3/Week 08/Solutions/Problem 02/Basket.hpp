@@ -67,6 +67,7 @@ private:
     void    reallocateData(                                 );
 
 
+
 private:
     const static unsigned int ALLOC_B = 4;
     const static unsigned int ALLOC_S = 2;

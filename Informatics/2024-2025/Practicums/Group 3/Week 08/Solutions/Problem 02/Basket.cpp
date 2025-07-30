@@ -56,7 +56,7 @@ void Basket::add(const char* name) {
     this->size = this->size + 1;
 }
 
-void Basket::rem(const char* name) {
+void Basket::rem(const char* name) {    
     if (name == nullptr) {
         throw std::invalid_argument("Invalid Rem Argument!");
     }
