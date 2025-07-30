@@ -27,9 +27,9 @@ Date::Date(std::uint8_t day, std::uint8_t month, std::uint16_t year) {
 
 
 void Date::print(std::ostream& stream) const noexcept {
-    stream << this->day     << '.'  ;
-    stream << this->month   << '.'  ;
-    stream << this->year    << '\n' ;
+    stream << static_cast<int>(this->day    )   << '.'  ;
+    stream << static_cast<int>(this->month  )   << '.'  ;
+    stream << static_cast<int>(this->year   )   << '\n' ;
 }
 
 
@@ -39,8 +39,8 @@ bool Date::validateDate(std::uint32_t date) const noexcept {
         return false;
     }
 
-    std::uint8_t d = static_cast<std::uint8_t>(date >> 16);
-    std::uint8_t m = static_cast<std::uint8_t>(date >> 24);
+    std::uint8_t d = static_cast<std::uint8_t>(date >> 24);
+    std::uint8_t m = static_cast<std::uint8_t>(date >> 16);
 
     switch (m) {
         case Date::JAN: case Date::MAR: case Date::MAY: case Date::JUL:
